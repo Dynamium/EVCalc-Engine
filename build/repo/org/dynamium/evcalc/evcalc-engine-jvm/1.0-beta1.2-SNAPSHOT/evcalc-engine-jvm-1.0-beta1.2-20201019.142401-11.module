@@ -1,0 +1,97 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.dynamium.evcalc",
+    "module": "evcalc-engine-jvm",
+    "version": "1.0-beta1.2-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.3",
+      "buildId": "xqzfjbwjefgx3gfadznma3dbjq"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 14,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.4.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "evcalc-engine-jvm-1.0-beta1.2-SNAPSHOT.jar",
+          "url": "evcalc-engine-jvm-1.0-beta1.2-SNAPSHOT.jar",
+          "size": 13791,
+          "sha512": "8167d777c8f6109c4bd58d0ef570cd90c4cc7001aa3a10e9f5c24a696d054fbdd66e8058c6789f129d42ce78f33db3f470374d2032e4c0bf2a0f3f8a2a7c3054",
+          "sha256": "749315281fb95319d1918d0e71727971cae04c085eeb1260562d7f3afade9066",
+          "sha1": "946af8ae76b1a923ae1966821669b1137976e780",
+          "md5": "b67350ba450edd88904f039ae852de6a"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 14,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.slf4j",
+          "module": "slf4j-simple",
+          "version": {
+            "requires": "1.7.26"
+          }
+        },
+        {
+          "group": "io.github.microutils",
+          "module": "kotlin-logging",
+          "version": {
+            "requires": "1.12.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.4.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "evcalc-engine-jvm-1.0-beta1.2-SNAPSHOT.jar",
+          "url": "evcalc-engine-jvm-1.0-beta1.2-SNAPSHOT.jar",
+          "size": 13791,
+          "sha512": "8167d777c8f6109c4bd58d0ef570cd90c4cc7001aa3a10e9f5c24a696d054fbdd66e8058c6789f129d42ce78f33db3f470374d2032e4c0bf2a0f3f8a2a7c3054",
+          "sha256": "749315281fb95319d1918d0e71727971cae04c085eeb1260562d7f3afade9066",
+          "sha1": "946af8ae76b1a923ae1966821669b1137976e780",
+          "md5": "b67350ba450edd88904f039ae852de6a"
+        }
+      ]
+    }
+  ]
+}
