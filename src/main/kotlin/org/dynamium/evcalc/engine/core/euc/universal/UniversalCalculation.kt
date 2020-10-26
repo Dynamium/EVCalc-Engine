@@ -38,23 +38,44 @@ internal object UniversalCalculation {
 
         // ---------------- Step 1/5: tweak end value with battery capacity ---------------- //
         logger.debug { "Step 1/5: tweak end value with battery capacity" }
-        when {
+        calculatedValue = when {
             batteryCapacity > startBatteryCapacity -> { // If battery capacity is greater than the start value
-                calculatedValue -= calculateOffset(Attribute.BATTERY_CAPACITY, batteryCapacity, calculatedValue) // Subtract the offset to the end value
+                + calculateOffset(Attribute.BATTERY_CAPACITY, batteryCapacity, calculatedValue) // Subtract the offset
             }
             batteryCapacity < startBatteryCapacity -> { // If battery capacity is less than start value
-                calculatedValue += calculateOffset(Attribute.BATTERY_CAPACITY, batteryCapacity, calculatedValue) // Add the offset to the end value
+                - calculateOffset(Attribute.BATTERY_CAPACITY, batteryCapacity, calculatedValue) // Add the offset to the end value
             }
+            else -> calculatedValue
         }
 
         // ---------------- Step 2/5: Apply rider weight ---------------- //
         logger.debug { "Step 2/5: Apply rider weight" }
-        when {
+        calculatedValue = when {
             riderWeight > startRiderWeight -> { // If rider weight is greater than start value
+                - calculateOffset(Attribute.RIDER_WEIGHT, riderWeight, calculatedValue) // Subtract the offset
+            }
+            riderWeight < startRiderWeight -> { // If rider weight is less than the start value
+                + calculateOffset(Attribute.RIDER_WEIGHT, riderWeight, calculatedValue) // Add the offset
+            }
+            else -> calculatedValue
+        }
 
+        // ---------------- Step 3/5: Apply air temperature ---------------- //
+        logger.debug { "Step 3/5: Apply air temperature" }
+        calculatedValue = when {
+            airTemp > startAirTemperatureEnd -> {
+                - calculateOffset(Attribute.AIR_TEMP, airTemp, calculatedValue)
+            }
+            airTemp < startAirTemperatureStart -> {
+                - calculateOffset(Attribute.AIR_TEMP, airTemp, calculatedValue)
+            }
+            else -> {
+                calculatedValue
             }
         }
 
+        // ---------------- Step 4/5: Apply battery cycles ---------------- //
+        logger.debug { "Step 3/5: Apply battery cycles" }
 
         return calculatedValue
     }
