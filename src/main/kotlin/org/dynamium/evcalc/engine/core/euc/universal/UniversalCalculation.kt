@@ -1,6 +1,7 @@
 package org.dynamium.evcalc.engine.core.euc.universal
 
 import mu.KotlinLogging
+import org.dynamium.evcalc.engine.api.EucRideStyle
 import org.dynamium.evcalc.engine.core.euc.Attribute
 
 /*
@@ -34,7 +35,8 @@ internal object UniversalCalculation {
         batteryCapacity: Int,
         airTemp: Int,
         batteryCycles: Int,
-        speed: Int
+        speed: Int,
+        rideStyle: EucRideStyle
     ): Int {
         var calculatedValue = startMileage
 

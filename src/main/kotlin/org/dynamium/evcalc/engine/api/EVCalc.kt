@@ -25,7 +25,7 @@ object EVCalc {
         when (device) {
             DeviceModel.EUC_UNIVERSAL -> {
                 calculatedValue =
-                    UniversalCalculation.calculateMileage(riderWeight, batteryCapacity, airTemp, batteryCycles, speed)
+                    UniversalCalculation.calculateMileage(riderWeight, batteryCapacity, airTemp, batteryCycles, speed, rideStyle)
             }
             else -> {
                 throw NotImplementedError(
