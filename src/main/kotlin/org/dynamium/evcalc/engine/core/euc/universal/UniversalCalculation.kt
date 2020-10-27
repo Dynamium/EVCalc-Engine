@@ -29,53 +29,72 @@ private const val speedOffset = 1
 private val logger = KotlinLogging.logger {}
 
 internal object UniversalCalculation {
-    fun calculateMileage(riderWeight: Int, batteryCapacity: Int, airTemp: Int, batteryCycles: Int, speed: Int): Int {
+    fun calculateMileage(
+        riderWeight: Int,
+        batteryCapacity: Int,
+        airTemp: Int,
+        batteryCycles: Int,
+        speed: Int
+    ): Int {
         var calculatedValue = startMileage
 
         logger.debug {
             "Called calculateMileage function"
         }
 
+        // ---------------- Preparation step: check if battery capacity and speed aren't 0 ---------------- //
+        logger.debug { "Preparation step: check if battery capacity and speed aren't 0" }
+        when {
+            batteryCapacity == 0 -> {
+                logger.debug { "Battery capacity is 0, returning 0" }
+                return 0
+            }
+            speed == 0 -> {
+                logger.debug { "Speed is 0, returning 0" }
+                return 0
+            }
+        }
+        logger.debug { "Battery capacity and speed aren't 0, proceeding" }
+
         // ---------------- Step 1/5: tweak end value with battery capacity ---------------- //
         logger.debug { "Step 1/5: tweak end value with battery capacity" }
-        calculatedValue = when {
-            batteryCapacity > startBatteryCapacity -> { // If battery capacity is greater than the start value
-                + calculateOffset(Attribute.BATTERY_CAPACITY, batteryCapacity, calculatedValue) // Subtract the offset
-            }
-            batteryCapacity < startBatteryCapacity -> { // If battery capacity is less than start value
-                - calculateOffset(Attribute.BATTERY_CAPACITY, batteryCapacity, calculatedValue) // Add the offset to the end value
-            }
-            else -> calculatedValue
-        }
+        calculatedValue += calculateOffset(
+            attribute = Attribute.BATTERY_CAPACITY,
+            rawValue = batteryCapacity,
+            currentCalculatedValue = calculatedValue
+        )
 
         // ---------------- Step 2/5: Apply rider weight ---------------- //
         logger.debug { "Step 2/5: Apply rider weight" }
-        calculatedValue = when {
-            riderWeight > startRiderWeight -> { // If rider weight is greater than start value
-                - calculateOffset(Attribute.RIDER_WEIGHT, riderWeight, calculatedValue) // Subtract the offset
-            }
-            riderWeight < startRiderWeight -> { // If rider weight is less than the start value
-                + calculateOffset(Attribute.RIDER_WEIGHT, riderWeight, calculatedValue) // Add the offset
-            }
-            else -> calculatedValue
-        }
+        calculatedValue += calculateOffset(
+            attribute = Attribute.RIDER_WEIGHT,
+            rawValue = riderWeight,
+            currentCalculatedValue = calculatedValue
+        )
 
         // ---------------- Step 3/5: Apply air temperature ---------------- //
         logger.debug { "Step 3/5: Apply air temperature" }
-        calculatedValue = when {
-            airTemp > startAirTemperatureEnd -> {
-                - calculateOffset(Attribute.AIR_TEMP, airTemp, calculatedValue)
-            }
-            airTemp < startAirTemperatureStart -> {
-                - calculateOffset(Attribute.AIR_TEMP, airTemp, calculatedValue)
-            }
-            else -> {
-                calculatedValue
-            }
-        }
+        calculatedValue += calculateOffset(
+            attribute = Attribute.AIR_TEMP,
+            rawValue = airTemp,
+            currentCalculatedValue = calculatedValue
+        )
 
         // ---------------- Step 4/5: Apply battery cycles ---------------- //
         logger.debug { "Step 4/5: Apply battery cycles" }
+        calculatedValue += calculateOffset(
+            attribute = Attribute.BATTERY_CYCLES,
+            rawValue = batteryCycles,
+            currentCalculatedValue = calculatedValue
+        )
+
+        // ---------------- Step 5/5: Apply speed ---------------- //
+        logger.debug { "Step 5/5: Apply speed" }
+        calculatedValue += calculateOffset(
+            attribute = Attribute.SPEED,
+            rawValue = speed,
+            currentCalculatedValue = calculatedValue
+        )
 
         return calculatedValue
     }
@@ -87,7 +106,11 @@ internal object UniversalCalculation {
 
             }
             Attribute.BATTERY_CAPACITY -> {
-
+                when {
+                    rawValue < startBatteryCapacity -> {
+                        calculatedValue = rawValue / currentCalculatedValue * 100
+                    }
+                }
             }
             Attribute.AIR_TEMP -> {
 

@@ -26,6 +26,11 @@ class EucUniversalTest : StringSpec({
         calculatedValue.shouldBe(0)
     }
 
+    "When speed is 0, returned value must be 0" {
+        val calculatedValue = EVCalc.calculateMileage(75, 1800, 31, 100, 0, device)
+        calculatedValue.shouldBe(0)
+    }
+
     "When battery capacity is greater than 100, value needs to be greater than 0" {
         val calculatedValue = EVCalc.calculateMileage(75, 100, 31, 100, 36, device)
         calculatedValue.shouldNotBe(0)
