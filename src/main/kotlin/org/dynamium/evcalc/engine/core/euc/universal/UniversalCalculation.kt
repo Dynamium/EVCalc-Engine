@@ -110,10 +110,33 @@ internal object UniversalCalculation {
         var calculatedValue = 0
         when (attribute) {
             Attribute.RIDER_WEIGHT -> {
+                calculatedValue = when {
+                    rawValue > startRiderWeight -> {
+                        var endValue = 0
 
+                        val val1 = rawValue - startRiderWeight // Get the offset
+                        var calculatedOffset = val1 // Helper variable
+                        if (val1 > 12) { // If offset is greater than 12
+                            while (calculatedOffset > 12) { // Loop for making the offset less than 12
+                                endValue -= 7 // Add 7 km to returned value
+                                calculatedOffset -= 12 // Subtract 12 kg from helper variable
+                            }
+                        }
+                        if (calculatedOffset == 0) endValue // If the helper variable is 0, return our result
+                        // But if not, continue the calculation
+                        endValue
+                    }
+                    rawValue < startRiderWeight -> {
+                        0
+                    }
+                    else -> {
+                        0
+                    }
+                }
             }
             Attribute.BATTERY_CAPACITY -> {
                 calculatedValue = when {
+                    // Mathematical actions for getting percentage of one number from another
                     rawValue < startBatteryCapacity -> {
                         val val1 = rawValue / currentCalculatedValue
                         val val2 = val1 * 100
