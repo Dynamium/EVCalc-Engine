@@ -63,6 +63,7 @@ internal object UniversalCalculation {
             rawValue = batteryCapacity,
             currentCalculatedValue = calculatedValue
         )
+        logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 2/5: Apply rider weight ---------------- //
         logger.debug { "Step 2/5: Apply rider weight" }
@@ -71,6 +72,7 @@ internal object UniversalCalculation {
             rawValue = riderWeight,
             currentCalculatedValue = calculatedValue
         )
+        logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 3/5: Apply air temperature ---------------- //
         logger.debug { "Step 3/5: Apply air temperature" }
@@ -79,6 +81,7 @@ internal object UniversalCalculation {
             rawValue = airTemp,
             currentCalculatedValue = calculatedValue
         )
+        logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 4/5: Apply battery cycles ---------------- //
         logger.debug { "Step 4/5: Apply battery cycles" }
@@ -87,6 +90,7 @@ internal object UniversalCalculation {
             rawValue = batteryCycles,
             currentCalculatedValue = calculatedValue
         )
+        logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 5/5: Apply speed ---------------- //
         logger.debug { "Step 5/5: Apply speed" }
@@ -95,6 +99,7 @@ internal object UniversalCalculation {
             rawValue = speed,
             currentCalculatedValue = calculatedValue
         )
+        logger.debug { "Calculated value is $calculatedValue" }
 
         return calculatedValue
     }
@@ -106,9 +111,15 @@ internal object UniversalCalculation {
 
             }
             Attribute.BATTERY_CAPACITY -> {
-                when {
+                calculatedValue = when {
                     rawValue < startBatteryCapacity -> {
-                        calculatedValue = rawValue / currentCalculatedValue * 100
+                        rawValue / currentCalculatedValue * 100
+                    }
+                    rawValue > startBatteryCapacity -> {
+                        rawValue / currentCalculatedValue * 100
+                    }
+                    else -> {
+                        0
                     }
                 }
             }

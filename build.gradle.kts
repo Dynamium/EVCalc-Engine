@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+
 plugins {
     kotlin("jvm") version "1.4.10"
     id("maven-publish")
@@ -14,25 +15,29 @@ repositories {
 
 publishing {
     repositories {
-        /*maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Dynamium/EVCalc")
+        maven {
             credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("EVCALC_GHP_USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("EVCALC_GHP_TOKEN")
+                username = System.getenv("jb_packages_username")
+                password = System.getenv("jb_packages_password")
             }
-        }*/
-        maven { // For local maven deployment
-            url = uri("$buildDir/repo")
+
+            url = uri("https://maven.pkg.jetbrains.space/dynamium/p/evc/evcalc-engine")
         }
+        /*maven { // For local maven deployment
+            url = uri("$buildDir/repo")
+        }*/
     }
     publications {
-        /*create<MavenPublication>("evcalc") {
-            from(components["java"])
-        }*/
-        create<MavenPublication>("evcalc-local") { // For local maven deployment
+        create<MavenPublication>("evcalc") {
+            groupId = project.group.toString()
+            artifactId = project.name
+            version = project.version.toString()
             from(components["java"])
         }
+
+        /*create<MavenPublication>("evcalc-local") { // For local maven deployment
+            from(components["java"])
+        }*/
     }
 }
 
@@ -48,6 +53,6 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
