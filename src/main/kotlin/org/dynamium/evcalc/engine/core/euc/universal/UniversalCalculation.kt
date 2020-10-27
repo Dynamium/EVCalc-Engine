@@ -75,7 +75,7 @@ internal object UniversalCalculation {
         }
 
         // ---------------- Step 4/5: Apply battery cycles ---------------- //
-        logger.debug { "Step 3/5: Apply battery cycles" }
+        logger.debug { "Step 4/5: Apply battery cycles" }
 
         return calculatedValue
     }
