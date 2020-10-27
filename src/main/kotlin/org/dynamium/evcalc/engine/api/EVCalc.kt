@@ -19,7 +19,7 @@ object EVCalc {
         batteryCycles: Int = 100,
         speed: Int,
         device: DeviceModel,
-        rideStyle: EucRideStyle
+        rideStyle: EucRideStyle = EucRideStyle.MEDIUM
     ): Int {
         val calculatedValue: Int
         when (device) {
