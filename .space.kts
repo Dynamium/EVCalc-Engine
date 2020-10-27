@@ -1,7 +1,15 @@
 job("Build Engine") {
-    gradlew("openjdk:14", "clean build")
+    container("openjdk:14") {
+        shellScript {
+            content = "./gradlew clean build"
+        }
+    }
 }
 
 job("Publish artifact") {
-    gradlew("openjdk:14", "publish")
+    container("openjdk:14") {
+        shellScript {
+            content = "./gradlew publish"
+        }
+    }
 }
