@@ -113,10 +113,14 @@ internal object UniversalCalculation {
             Attribute.BATTERY_CAPACITY -> {
                 calculatedValue = when {
                     rawValue < startBatteryCapacity -> {
-                        rawValue / currentCalculatedValue * 100
+                        val val1 = rawValue / currentCalculatedValue
+                        val val2 = val1 * 100
+                        val2
                     }
                     rawValue > startBatteryCapacity -> {
-                        rawValue / currentCalculatedValue * 100
+                        val val1 = rawValue / currentCalculatedValue
+                        val val2 = val1 * 100
+                        val2
                     }
                     else -> {
                         0
