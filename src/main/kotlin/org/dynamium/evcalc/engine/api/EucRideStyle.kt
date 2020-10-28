@@ -6,5 +6,6 @@ enum class EucRideStyle {
     SLOW,
     MEDIUM,
     FAST,
+    EXTREME,
     NEAR_CUTOUT
 }
