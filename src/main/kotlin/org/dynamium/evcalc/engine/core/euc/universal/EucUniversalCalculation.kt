@@ -3,6 +3,7 @@ package org.dynamium.evcalc.engine.core.euc.universal
 import mu.KotlinLogging
 import org.dynamium.evcalc.engine.api.EucRideStyle
 import org.dynamium.evcalc.engine.core.euc.Attribute
+import kotlin.math.abs
 
 /*
  * EVCalc Universal Calculation
@@ -29,7 +30,7 @@ private const val speedOffset = 1
 
 private val logger = KotlinLogging.logger {}
 
-internal object UniversalCalculation {
+internal object EucUniversalCalculation {
     fun calculateMileage(
         riderWeight: Int,
         batteryCapacity: Int,
@@ -112,22 +113,58 @@ internal object UniversalCalculation {
             Attribute.RIDER_WEIGHT -> {
                 calculatedValue = when {
                     rawValue > startRiderWeight -> {
-                        var endValue = 0
+                        var endValue = 0 // Create our end value
 
                         val val1 = rawValue - startRiderWeight // Get the offset
                         var calculatedOffset = val1 // Helper variable
+
                         if (val1 > 12) { // If offset is greater than 12
+
                             while (calculatedOffset > 12) { // Loop for making the offset less than 12
-                                endValue -= 7 // Add 7 km to returned value
+
+                                endValue += 7 // Add 7 km to returned value
                                 calculatedOffset -= 12 // Subtract 12 kg from helper variable
                             }
                         }
-                        if (calculatedOffset == 0) endValue // If the helper variable is 0, return our result
-                        // But if not, continue the calculation
-                        endValue
+
+                        if (calculatedOffset == 0) {
+                            endValue // If the helper variable is 0, return our result
+                        } else { // But if not, continue the calculation
+                            val val2 = calculatedOffset / 12 * 100 // Get percentage of one value from another
+
+                            val val3 = 7 * val2 / 100 // Apply our percentage to get the end value
+
+                            endValue = -abs(val3) // Convert our number to negative, so the end value of the whole calculation will be subtracted instead of added
+
+                            endValue // Return our final result
+                        }
                     }
                     rawValue < startRiderWeight -> {
-                        0
+                        var endValue = 0 // Create our end value
+
+                        val val1 = startRiderWeight - rawValue // Get the offset
+                        var calculatedOffset = val1 // Helper variable
+
+                        if (val1 > 12) { // If offset is greater than 12
+
+                            while (calculatedOffset > 12) { // Loop for making the offset less than 12
+
+                                endValue += 7 // Add 7 km to returned value
+                                calculatedOffset -= 12 // Subtract 12 kg from helper variable
+                            }
+                        }
+
+                        if (calculatedOffset == 0) {
+                            endValue // If the helper variable is 0, return our result
+                        } else { // But if not, continue the calculation
+                            val val2 = calculatedOffset / 12 * 100 // Get percentage of one value from another
+
+                            val val3 = 7 * val2 / 100 // Apply our percentage to get the end value
+
+                            endValue = val3 // Assign our result to the result variable
+
+                            endValue // Return our final result
+                        }
                     }
                     else -> {
                         0

@@ -2,7 +2,7 @@
 
 package org.dynamium.evcalc.engine.api
 
-import org.dynamium.evcalc.engine.core.euc.universal.UniversalCalculation
+import org.dynamium.evcalc.engine.core.euc.universal.EucUniversalCalculation
 
 
 /*
@@ -25,7 +25,7 @@ object EVCalc {
         when (device) {
             DeviceModel.EUC_UNIVERSAL -> {
                 calculatedValue =
-                    UniversalCalculation.calculateMileage(riderWeight, batteryCapacity, airTemp, batteryCycles, speed, rideStyle)
+                    EucUniversalCalculation.calculateMileage(riderWeight, batteryCapacity, airTemp, batteryCycles, speed, rideStyle)
             }
             else -> {
                 throw NotImplementedError(
