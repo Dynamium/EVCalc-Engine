@@ -5,7 +5,6 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.dynamium.evcalc.engine.api.DeviceModel
 import org.dynamium.evcalc.engine.api.EVCalc
-import org.dynamium.evcalc.engine.api.EucRideStyle
 
 class EucUniversalTest : StringSpec({
     val device = DeviceModel.EUC_UNIVERSAL
