@@ -1,7 +1,7 @@
 job("Build Engine") {
     container("openjdk:14") {
         shellScript {
-            content = "./gradlew clean build"
+            content = "./gradlew clean build --info "
         }
     }
 }
