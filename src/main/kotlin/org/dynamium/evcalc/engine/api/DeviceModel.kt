@@ -49,4 +49,10 @@ enum class DeviceModel {
 	/*
 	 * ES (Electric Scooter) Models
 	 */
+
+	// Xiaomi
+	XIAOMI_MIJIA_M365,		// Xiaomi Mijia M365
+
+	// Ninebot
+	NINEBOT_KICKSCOOTER_MAX	// Ninebot KickScooter Max
 }
