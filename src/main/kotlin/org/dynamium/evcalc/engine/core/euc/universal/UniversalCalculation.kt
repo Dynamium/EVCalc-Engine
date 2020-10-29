@@ -41,6 +41,8 @@ internal object EucUniversalCalculation {
     ): Int {
         var calculatedValue = startMileage
 
+        logger.debug { "Received values are: riderWeight = $riderWeight, batteryCapacity = $batteryCapacity, airTemp = $airTemp, batteryCycles = $batteryCycles, speed = $speed, rideStyle = $rideStyle" }
+
         logger.debug {
             "Called calculateMileage function"
         }
@@ -175,14 +177,38 @@ internal object EucUniversalCalculation {
                 calculatedValue = when {
                     // Mathematical actions for getting percentage of one number from another
                     rawValue < startBatteryCapacity -> {
-                        val val1 = rawValue / currentCalculatedValue
-                        val val2 = val1 * 100
-                        val2
+                        logger.debug { "rawValue is $rawValue, currentCalculatedValue is $currentCalculatedValue" }
+
+                        val val1 = rawValue * 100
+                        logger.debug { val1 }
+                        val val2 = val1 / startBatteryCapacity
+                        logger.debug { val2 }
+                        val val3 = 100 - val2
+                        logger.debug { val3 }
+
+                        val val4 = val3 * currentCalculatedValue
+                        logger.debug { val4 }
+                        val val5 = val4 / 100
+                        logger.debug { val5 }
+                        -abs(val5)
                     }
                     rawValue > startBatteryCapacity -> {
-                        val val1 = rawValue / currentCalculatedValue
-                        val val2 = val1 * 100
-                        val2
+                        logger.debug { "rawValue is $rawValue, currentCalculatedValue is $currentCalculatedValue, startBatteryCapacity is $startBatteryCapacity" }
+
+                        val val1 = rawValue * 100
+                        logger.debug { "val1 = $val1" }
+                        val val2 = val1 / startBatteryCapacity
+                        logger.debug { "val2 = $val2" }
+                        val val3 = val2 - 100
+                        logger.debug { "val3 = $val3" }
+                        val val4 = 100 - val3
+                        logger.debug { "val4 = $val4" }
+
+                        val val5 = val4 * currentCalculatedValue
+                        logger.debug { "val5 = $val5" }
+                        val val6 = val5 / 100
+                        logger.debug { "val6 = $val6" }
+                        val6
                     }
                     else -> {
                         0
