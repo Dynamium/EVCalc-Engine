@@ -3,6 +3,8 @@ package org.dynamium.evcalc.engine.core.euc.universal
 import mu.KotlinLogging
 import org.dynamium.evcalc.engine.api.EucRideStyle
 import org.dynamium.evcalc.engine.core.euc.Attribute
+import org.dynamium.evcalc.engine.core.euc.Attribute.*
+import org.dynamium.evcalc.engine.core.tools.CalculationTools.getOffsetOfValues
 import kotlin.math.abs
 
 /*
@@ -15,6 +17,7 @@ import kotlin.math.abs
 // Start constants
 private const val startRiderWeight = 75
 private const val startBatteryCapacity = 1555
+private val startAirTemperature = listOf(20, 30)
 private const val startAirTemperatureStart = 20
 private const val startAirTemperatureEnd = 30
 private const val startBatteryCycles = 100
@@ -64,7 +67,7 @@ internal object EucUniversalCalculation {
         // ---------------- Step 1/5: tweak end value with battery capacity ---------------- //
         logger.debug { "Step 1/5: tweak end value with battery capacity" }
         calculatedValue += calculateOffset(
-            attribute = Attribute.BATTERY_CAPACITY,
+            attribute = BATTERY_CAPACITY,
             rawValue = batteryCapacity,
             currentCalculatedValue = calculatedValue
         )
@@ -73,7 +76,7 @@ internal object EucUniversalCalculation {
         // ---------------- Step 2/5: Apply rider weight ---------------- //
         logger.debug { "Step 2/5: Apply rider weight" }
         calculatedValue += calculateOffset(
-            attribute = Attribute.RIDER_WEIGHT,
+            attribute = RIDER_WEIGHT,
             rawValue = riderWeight,
             currentCalculatedValue = calculatedValue
         )
@@ -82,7 +85,7 @@ internal object EucUniversalCalculation {
         // ---------------- Step 3/5: Apply air temperature ---------------- //
         logger.debug { "Step 3/5: Apply air temperature" }
         calculatedValue += calculateOffset(
-            attribute = Attribute.AIR_TEMP,
+            attribute = AIR_TEMP,
             rawValue = airTemp,
             currentCalculatedValue = calculatedValue
         )
@@ -91,7 +94,7 @@ internal object EucUniversalCalculation {
         // ---------------- Step 4/5: Apply battery cycles ---------------- //
         logger.debug { "Step 4/5: Apply battery cycles" }
         calculatedValue += calculateOffset(
-            attribute = Attribute.BATTERY_CYCLES,
+            attribute = BATTERY_CYCLES,
             rawValue = batteryCycles,
             currentCalculatedValue = calculatedValue
         )
@@ -100,7 +103,7 @@ internal object EucUniversalCalculation {
         // ---------------- Step 5/5: Apply speed ---------------- //
         logger.debug { "Step 5/5: Apply speed" }
         calculatedValue += calculateOffset(
-            attribute = Attribute.SPEED,
+            attribute = SPEED,
             rawValue = speed,
             currentCalculatedValue = calculatedValue
         )
@@ -112,7 +115,7 @@ internal object EucUniversalCalculation {
     private fun calculateOffset(attribute: Attribute, rawValue: Int, currentCalculatedValue: Int): Int {
         var calculatedValue = 0
         when (attribute) {
-            Attribute.RIDER_WEIGHT -> {
+            RIDER_WEIGHT -> {
                 calculatedValue = when {
                     rawValue > startRiderWeight -> {
                         var endValue = 0 // Create our end value
@@ -173,7 +176,7 @@ internal object EucUniversalCalculation {
                     }
                 }
             }
-            Attribute.BATTERY_CAPACITY -> {
+            BATTERY_CAPACITY -> {
                 calculatedValue = when {
                     // Mathematical actions for getting percentage of one number from another
                     rawValue < startBatteryCapacity -> {
@@ -215,16 +218,84 @@ internal object EucUniversalCalculation {
                     }
                 }
             }
-            Attribute.AIR_TEMP -> {
-
+            AIR_TEMP -> {
             }
-            Attribute.BATTERY_CYCLES -> {
-
+            BATTERY_CYCLES -> {
             }
-            Attribute.SPEED -> {
-
+            SPEED -> {
             }
         }
         return calculatedValue
+    }
+
+    private fun Int.applyOffset(attribute: Attribute, currentCalculatedValue: Int) {
+        var calculatedValue = 0
+        when (attribute) {
+            RIDER_WEIGHT -> {
+                calculatedValue = when {
+                    this > startRiderWeight -> {
+                        var endValue = 0 // Create our end value
+
+                        val val1 = getOffsetOfValues(this, startRiderWeight) // Get the offset
+                        var calculatedOffset = val1 // Helper variable
+
+                        if (val1 > 12) { // If offset is greater than 12
+
+                            while (calculatedOffset > 12) { // Loop for making the offset less than 12
+
+                                endValue += 7 // Add 7 km to returned value
+                                calculatedOffset -= 12 // Subtract 12 kg from helper variable
+                            }
+                        }
+
+                        if (calculatedOffset == 0) {
+                            endValue // If the helper variable is 0, return our result
+                        } else { // But if not, continue the calculation
+                            val val2 = calculatedOffset / 12 * 100 // Get percentage of one value from another
+
+                            val val3 = 7 * val2 / 100 // Apply our percentage to get the end value
+
+                            endValue = -abs(val3) // Convert our number to negative, so the end value of the whole calculation will be subtracted instead of added
+
+                            endValue // Return our final result
+                        }
+                    }
+                    this < startRiderWeight -> {
+                        var endValue = 0 // Create our end value
+
+                        val val1 = startRiderWeight - this // Get the offset
+                        var calculatedOffset = val1 // Helper variable
+
+                        if (val1 > 12) { // If offset is greater than 12
+
+                            while (calculatedOffset > 12) { // Loop for making the offset less than 12
+
+                                endValue += 7 // Add 7 km to returned value
+                                calculatedOffset -= 12 // Subtract 12 kg from helper variable
+                            }
+                        }
+
+                        if (calculatedOffset == 0) {
+                            endValue // If the helper variable is 0, return our result
+                        } else { // But if not, continue the calculation
+                            val val2 = calculatedOffset / 12 * 100 // Get percentage of one value from another
+
+                            val val3 = 7 * val2 / 100 // Apply our percentage to get the end value
+
+                            endValue = val3 // Assign our result to the result variable
+
+                            endValue // Return our final result
+                        }
+                    }
+                    else -> {
+                        0
+                    }
+                }
+            }
+            BATTERY_CAPACITY -> TODO()
+            AIR_TEMP -> TODO()
+            BATTERY_CYCLES -> TODO()
+            SPEED -> TODO()
+        }
     }
 }
