@@ -12,8 +12,8 @@ import org.dynamium.evcalc.engine.api.EVCalc
 class EucUniversalTest : StringSpec({
     val device = DeviceModel.EUC_UNIVERSAL
     "Returned value needs to pe positive" {
-        val calculatedValue = EVCalc.calculateMileage(76, 1600, 31, 100, 36, device)
-        calculatedValue.shouldBeGreaterThan(-1)
+        val calculatedValue = EVCalc.calculateMileage(76, 1554, 31, 100, 36, device)
+        calculatedValue.shouldBeGreaterThan(0)
     }
 
     "When battery capacity is 0, the result needs to be 0" {
