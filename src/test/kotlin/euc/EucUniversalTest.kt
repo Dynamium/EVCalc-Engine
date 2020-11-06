@@ -2,6 +2,7 @@ package euc
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.ints.shouldBeGreaterThan
+import io.kotest.matchers.ints.shouldBeLessThan
 import io.kotest.matchers.ints.shouldNotBeLessThan
 import io.kotest.matchers.ints.shouldNotBeLessThanOrEqual
 import io.kotest.matchers.shouldBe
@@ -34,5 +35,11 @@ class EucUniversalTest : StringSpec({
     "When start values are passed as the arguments, returned value needs to be 88"{
         val calculatedValue = EVCalc.calculateMileage(75, 1555, 25, 100, 35, device)
         calculatedValue.shouldBe(88)
+    }
+
+    "If all values are totally real, returned value needs to be normal too" {
+        val calculatedValue = EVCalc.calculateMileage(76, 1556, 31, 100, 36, device)
+        calculatedValue.shouldBeGreaterThan(80)
+        calculatedValue.shouldBeLessThan(90)
     }
 })
