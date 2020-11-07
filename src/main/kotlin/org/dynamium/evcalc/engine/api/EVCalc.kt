@@ -21,11 +21,12 @@ object EVCalc {
         device: DeviceModel,
         rideStyle: EucRideStyle = EucRideStyle.MEDIUM
     ): Int {
-        val calculatedValue: Int
-        when (device) {
+        return when (device) {
             DeviceModel.EUC_UNIVERSAL -> {
-                calculatedValue =
-                    EucUniversalCalculation.calculateMileage(riderWeight, batteryCapacity, airTemp, batteryCycles, speed, rideStyle)
+                EucUniversalCalculation.calculateMileage(riderWeight, batteryCapacity, airTemp, batteryCycles, speed, rideStyle)
+            }
+            DeviceModel.KINGSONG_KS14D -> {
+                TODO()
             }
             else -> {
                 throw NotImplementedError(
@@ -35,6 +36,5 @@ object EVCalc {
                 )
             }
         }
-        return calculatedValue
     }
 }
