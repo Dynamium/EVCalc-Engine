@@ -37,7 +37,7 @@ class EucUniversalTest : StringSpec({
         calculatedValue.shouldBe(88)
     }
 
-    "If all values are totally real, returned value needs to be normal too" {
+    "If all values are totally real, returned value should be normal too" {
         val calculatedValue = EVCalc.calculateMileage(76, 1556, 31, 100, 36, device)
         calculatedValue.shouldBeGreaterThan(80)
         calculatedValue.shouldBeLessThan(90)
