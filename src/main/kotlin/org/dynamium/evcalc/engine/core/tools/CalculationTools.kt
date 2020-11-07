@@ -13,7 +13,7 @@ internal object CalculationTools {
     }
 
     /*
-     * Get offset of one value from another.
+     * Get off set of one value from another.
      *
      * @property num1 First value, needs to be bigger so offset wont be negative
      * @property num2 Second value, needs to be less than first argument.
