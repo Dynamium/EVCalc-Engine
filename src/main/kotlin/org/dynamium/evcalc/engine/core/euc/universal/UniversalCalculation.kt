@@ -4,6 +4,7 @@ import mu.KotlinLogging
 import org.dynamium.evcalc.engine.api.EucRideStyle
 import org.dynamium.evcalc.engine.core.euc.Attribute
 import org.dynamium.evcalc.engine.core.euc.Attribute.*
+import org.dynamium.evcalc.engine.core.tools.CalculationTools
 import org.dynamium.evcalc.engine.core.tools.CalculationTools.getOffsetOfValues
 import kotlin.math.abs
 
@@ -233,63 +234,26 @@ internal object EucUniversalCalculation {
         when (attribute) {
             RIDER_WEIGHT -> {
                 calculatedValue = when {
-                    this > startRiderWeight -> {
+                    this > currentCalculatedValue -> {
                         var endValue = 0 // Create our end value
 
                         val val1 = getOffsetOfValues(this, startRiderWeight) // Get the offset
-                        var calculatedOffset = val1 // Helper variable
+                        var tmpVal = val1
 
-                        if (val1 > 12) { // If offset is greater than 12
+                        if (val1 > 12)
+                            while (tmpVal > 12)  // Loop for making the offset less than 12
+                                endValue += 7; tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
 
-                            while (calculatedOffset > 12) { // Loop for making the offset less than 12
+                        if (tmpVal == 0) 0 else { // If the temp variable is 0, return our result, but if not, continue the calculation
+                            val val2 = CalculationTools.getPercentageOfOneValueFromAnother(tmpVal, 12) // Get percentage of temporary value from a constant
 
-                                endValue += 7 // Add 7 km to returned value
-                                calculatedOffset -= 12 // Subtract 12 kg from helper variable
-                            }
-                        }
+                            val val3 = CalculationTools.getValueOfValueFromPercentage(7, val2) // Apply our percentage to get the end value
+                            endValue += val3 // Add previous value to end variable
 
-                        if (calculatedOffset == 0) {
-                            endValue // If the helper variable is 0, return our result
-                        } else { // But if not, continue the calculation
-                            val val2 = calculatedOffset / 12 * 100 // Get percentage of one value from another
-
-                            val val3 = 7 * val2 / 100 // Apply our percentage to get the end value
-
-                            endValue = -abs(val3) // Convert our number to negative, so the end value of the whole calculation will be subtracted instead of added
-
-                            endValue // Return our final result
+                            -abs(endValue) // Return inverted number, so this offset will be subtracted from end value instead of added
                         }
                     }
-                    this < startRiderWeight -> {
-                        var endValue = 0 // Create our end value
-
-                        val val1 = startRiderWeight - this // Get the offset
-                        var calculatedOffset = val1 // Helper variable
-
-                        if (val1 > 12) { // If offset is greater than 12
-
-                            while (calculatedOffset > 12) { // Loop for making the offset less than 12
-
-                                endValue += 7 // Add 7 km to returned value
-                                calculatedOffset -= 12 // Subtract 12 kg from helper variable
-                            }
-                        }
-
-                        if (calculatedOffset == 0) {
-                            endValue // If the helper variable is 0, return our result
-                        } else { // But if not, continue the calculation
-                            val val2 = calculatedOffset / 12 * 100 // Get percentage of one value from another
-
-                            val val3 = 7 * val2 / 100 // Apply our percentage to get the end value
-
-                            endValue = val3 // Assign our result to the result variable
-
-                            endValue // Return our final result
-                        }
-                    }
-                    else -> {
-                        0
-                    }
+                    else -> 0
                 }
             }
             BATTERY_CAPACITY -> TODO()
@@ -297,5 +261,6 @@ internal object EucUniversalCalculation {
             BATTERY_CYCLES -> TODO()
             SPEED -> TODO()
         }
+        this - calculatedValue
     }
 }
