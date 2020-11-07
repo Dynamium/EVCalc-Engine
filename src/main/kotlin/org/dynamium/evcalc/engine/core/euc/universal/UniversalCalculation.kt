@@ -234,7 +234,7 @@ internal object EucUniversalCalculation {
         when (attribute) {
             RIDER_WEIGHT -> {
                 calculatedValue = when {
-                    this > currentCalculatedValue -> {
+                    this > startRiderWeight -> {
                         var endValue = 0 // Create our end value
 
                         val val1 = getOffsetOfValues(this, startRiderWeight) // Get the offset
