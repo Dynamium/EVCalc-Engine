@@ -261,6 +261,6 @@ internal object EucUniversalCalculation {
             BATTERY_CYCLES -> TODO()
             SPEED -> TODO()
         }
-        this - calculatedValue
+        this + calculatedValue
     }
 }
