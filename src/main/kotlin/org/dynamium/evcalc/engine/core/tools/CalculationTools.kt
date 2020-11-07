@@ -22,7 +22,11 @@ internal object CalculationTools {
         return num1 - num2
     }
 
-    fun getPercentageOfOneValueFromAnother() {
+    fun getPercentageOfOneValueFromAnother(firstVal: Int, secondVal: Int): Int {
+        return firstVal / secondVal * 100
+    }
 
+    fun getValueOfValueFromPercentage(value: Int, percentage: Int): Int {
+        return value * percentage / 100
     }
 }
