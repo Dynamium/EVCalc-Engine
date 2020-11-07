@@ -2,17 +2,17 @@ package euc
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.ints.shouldBeGreaterThan
+import io.kotest.matchers.ints.shouldBeLessThan
 import io.kotest.matchers.ints.shouldNotBeLessThanOrEqual
 import io.kotest.matchers.shouldBe
 import org.dynamium.evcalc.engine.api.DeviceModel
 import org.dynamium.evcalc.engine.api.EVCalc
 
-/*
 class KingSong14DTest : StringSpec ({
     val device = DeviceModel.KINGSONG_KS14D
     "Returned value needs to pe positive" {
-        val calculatedValue = EVCalc.calculateMileage(76, 1600, 31, 100, 36, device)
-        calculatedValue.shouldBeGreaterThan(-1)
+        val calculatedValue = EVCalc.calculateMileage(76, 1554, 31, 100, 36, device)
+        calculatedValue.shouldBeGreaterThan(0)
     }
 
     "When battery capacity is 0, the result needs to be 0" {
@@ -30,8 +30,13 @@ class KingSong14DTest : StringSpec ({
         calculatedValue.shouldNotBeLessThanOrEqual(0)
     }
 
-    "When start values are passed as the arguments, returned value needs to be 88" {
+    "When start values are passed as the arguments, returned value needs to be 88"{
         val calculatedValue = EVCalc.calculateMileage(75, 1555, 25, 100, 35, device)
         calculatedValue.shouldBe(88)
     }
-})*/
+
+    "If all values are totally real, returned value should be normal too" {
+        val calculatedValue = EVCalc.calculateMileage(76, 1556, 31, 100, 36, device)
+        calculatedValue.shouldBeGreaterThan(80).shouldBeLessThan(90)
+    }
+})
