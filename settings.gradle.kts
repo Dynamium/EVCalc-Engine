@@ -1,5 +1,5 @@
 
-rootProject.name = "evcalc-engine-jvm"
+rootProject.name = "evcalc-engine"
 
 pluginManagement {
     repositories {
