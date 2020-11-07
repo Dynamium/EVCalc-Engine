@@ -25,8 +25,8 @@ object EVCalc {
             DeviceModel.EUC_UNIVERSAL -> {
                 EucUniversalCalculation.calculateMileage(riderWeight, batteryCapacity, airTemp, batteryCycles, speed, rideStyle)
             }
-            DeviceModel.KINGSONG_KS14D -> {
-                TODO()
+            DeviceModel.KINGSONG_KS14SMD -> {
+                TODO("Make API implementation for KingSong KS-14SMD")
             }
             else -> {
                 throw NotImplementedError(

@@ -9,7 +9,7 @@ import org.dynamium.evcalc.engine.api.DeviceModel
 import org.dynamium.evcalc.engine.api.EVCalc
 
 class KingSong14DTest : StringSpec ({
-    val device = DeviceModel.KINGSONG_KS14D
+    val device = DeviceModel.KINGSONG_KS14SMD
     "Returned value needs to pe positive" {
         val calculatedValue = EVCalc.calculateMileage(76, 1554, 31, 100, 36, device)
         calculatedValue.shouldBeGreaterThan(0)

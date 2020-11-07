@@ -16,8 +16,7 @@ enum class DeviceModel {
 	 */
 	
 	// KingSong
-	KINGSONG_KS14M,         // KingSong KS-14M
-	KINGSONG_KS14D,         // KingSong KS-14D
+	KINGSONG_KS14SMD,         // KingSong KS-14SMD
 	KINGSONG_KS16S,         // KingSong KS-16S
 	KINGSONG_KS16X,         // KingSong KS-16X
 	KINGSONG_KS18L,         // KingSong KS-18L
