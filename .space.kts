@@ -13,7 +13,7 @@ job("[Engine] Publish artifact") {
 
         shellScript {
             interpreter = "/bin/bash"
-            content = "sudo apt install python3 && python3 ci-cd/publish.py"
+            location = "ci-cd-publish.sh"
         }
     }
 }
