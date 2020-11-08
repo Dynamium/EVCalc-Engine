@@ -260,11 +260,10 @@ internal object EucUniversalCalculation {
 
                             -abs(endValue) // Return inverted number, so this offset will be subtracted from end value instead of added
                         }
-
-                        this + calculatedValue // Apply our results to the end value
                     }
                     else -> 0
                 }
+                this + calculatedValue // Apply our results to the end value
             }
             AIR_TEMP -> TODO()
             BATTERY_CYCLES -> TODO()
