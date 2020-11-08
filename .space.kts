@@ -12,7 +12,7 @@ job("[Engine] Publish artifact") {
         env["jb_packages_password"] = Secrets("jb_packages_password")
 
         shellScript {
-            content = "python3 ci-cd/publish.py"
+            content = """apt install python3 && python3 ci-cd/publish.py"""
         }
     }
 }
