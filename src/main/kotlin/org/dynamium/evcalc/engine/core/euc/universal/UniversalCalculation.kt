@@ -112,6 +112,7 @@ internal object EucUniversalCalculation {
         return calculatedValue
     }
 
+    @Deprecated("Use extension function .applyOffset instead.")
     private fun calculateOffset(attribute: OffsetApplierAttribute, rawValue: Int, currentCalculatedValue: Int): Int {
         var calculatedValue = 0
         when (attribute) {
