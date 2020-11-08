@@ -2,7 +2,7 @@
 
 package org.dynamium.evcalc.engine.core.euc
 
-internal enum class Attribute {
+internal enum class OffsetApplierAttribute {
 	RIDER_WEIGHT,
 	BATTERY_CAPACITY,
 	AIR_TEMP,

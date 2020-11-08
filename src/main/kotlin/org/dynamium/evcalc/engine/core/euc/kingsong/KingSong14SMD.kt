@@ -1,7 +1,7 @@
 package org.dynamium.evcalc.engine.core.euc.kingsong
 
 import mu.KotlinLogging
-import org.dynamium.evcalc.engine.core.euc.Attribute
+import org.dynamium.evcalc.engine.core.euc.OffsetApplierAttribute
 
 /*
  * EVCalc Universal Calculation
@@ -38,22 +38,22 @@ internal object KingSong14DCalculation {
         return calculatedValue
     }
 
-    private fun calculateOffset(attribute: Attribute, rawValue: Int): Int {
+    private fun calculateOffset(attribute: OffsetApplierAttribute, rawValue: Int): Int {
         var calculatedValue = 0
         when (attribute) {
-            Attribute.RIDER_WEIGHT -> {
+            OffsetApplierAttribute.RIDER_WEIGHT -> {
                 TODO()
             }
-            Attribute.BATTERY_CAPACITY -> {
+            OffsetApplierAttribute.BATTERY_CAPACITY -> {
                 TODO()
             }
-            Attribute.AIR_TEMP -> {
+            OffsetApplierAttribute.AIR_TEMP -> {
                 TODO()
             }
-            Attribute.BATTERY_CYCLES -> {
+            OffsetApplierAttribute.BATTERY_CYCLES -> {
                 TODO()
             }
-            Attribute.SPEED -> {
+            OffsetApplierAttribute.SPEED -> {
                 TODO()
             }
         }

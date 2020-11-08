@@ -2,8 +2,8 @@ package org.dynamium.evcalc.engine.core.euc.universal
 
 import mu.KotlinLogging
 import org.dynamium.evcalc.engine.api.EucRideStyle
-import org.dynamium.evcalc.engine.core.euc.Attribute
-import org.dynamium.evcalc.engine.core.euc.Attribute.*
+import org.dynamium.evcalc.engine.core.euc.OffsetApplierAttribute
+import org.dynamium.evcalc.engine.core.euc.OffsetApplierAttribute.*
 import org.dynamium.evcalc.engine.core.tools.CalculationTools
 import org.dynamium.evcalc.engine.core.tools.CalculationTools.getOffsetOfValues
 import kotlin.math.abs
@@ -41,11 +41,10 @@ internal object EucUniversalCalculation {
         airTemp: Int,
         batteryCycles: Int,
         speed: Int,
-        rideStyle: EucRideStyle
     ): Int {
         var calculatedValue = startMileage
 
-        logger.debug { "Received values are: riderWeight = $riderWeight, batteryCapacity = $batteryCapacity, airTemp = $airTemp, batteryCycles = $batteryCycles, speed = $speed, rideStyle = $rideStyle" }
+        logger.debug { "Received values are: riderWeight = $riderWeight, batteryCapacity = $batteryCapacity, airTemp = $airTemp, batteryCycles = $batteryCycles, speed = $speed" }
 
         logger.debug {
             "Called calculateMileage function"
@@ -113,7 +112,7 @@ internal object EucUniversalCalculation {
         return calculatedValue
     }
 
-    private fun calculateOffset(attribute: Attribute, rawValue: Int, currentCalculatedValue: Int): Int {
+    private fun calculateOffset(attribute: OffsetApplierAttribute, rawValue: Int, currentCalculatedValue: Int): Int {
         var calculatedValue = 0
         when (attribute) {
             RIDER_WEIGHT -> {
@@ -229,9 +228,17 @@ internal object EucUniversalCalculation {
         return calculatedValue
     }
 
-    private fun Int.applyOffset(attribute: Attribute, currentCalculatedValue: Int) {
+
+    /**
+     * An extension function for applying offsets.
+     *
+     * @param attribute Indicates what offset you want to calculate. Uses OffsetApplierAttribute enum class to indicate that.
+     * @param currentCalculatedValue Specifies current calculated value, obviously.
+     */
+    private fun Int.applyOffset(attribute: OffsetApplierAttribute, currentCalculatedValue: Int) {
         var calculatedValue = 0
         when (attribute) {
+            BATTERY_CAPACITY -> TODO()
             RIDER_WEIGHT -> {
                 calculatedValue = when {
                     this > startRiderWeight -> {
@@ -252,15 +259,15 @@ internal object EucUniversalCalculation {
 
                             -abs(endValue) // Return inverted number, so this offset will be subtracted from end value instead of added
                         }
+
+                        this + calculatedValue // Apply our results to the end value
                     }
                     else -> 0
                 }
             }
-            BATTERY_CAPACITY -> TODO()
             AIR_TEMP -> TODO()
             BATTERY_CYCLES -> TODO()
             SPEED -> TODO()
         }
-        this + calculatedValue
     }
 }

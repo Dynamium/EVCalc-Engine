@@ -2,6 +2,9 @@
 
 package org.dynamium.evcalc.engine.api
 
+/**
+ * An enum class for indicating the device model.
+ */
 enum class DeviceModel {
 	
 	/*
