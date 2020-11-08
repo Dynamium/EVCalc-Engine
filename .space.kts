@@ -7,7 +7,7 @@ job("[Engine] Build") {
 }
 
 job("[Engine] Publish artifact") {
-    container("ubuntu") {
+    container("openjdk:14") {
         env["jb_packages_username"] = Secrets("jb_packages_username")
         env["jb_packages_password"] = Secrets("jb_packages_password")
 
