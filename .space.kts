@@ -12,7 +12,7 @@ job("[Engine] Publish artifact") {
         env["jb_packages_password"] = Secrets("jb_packages_password")
 
         shellScript {
-            content = "./gradlew publish"
+            content = "python3 ci-cd/publish.py"
         }
     }
 }

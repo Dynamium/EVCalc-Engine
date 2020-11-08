@@ -24,9 +24,14 @@ publishing {
 
             url = uri("https://maven.pkg.jetbrains.space/dynamium/p/evc/evcalc-engine")
         }
-        /*maven { // For local maven deployment
-            url = uri("$buildDir/repo")
-        }*/
+        maven() {
+            credentials {
+                username = System.getenv("jb_packages_username")
+                password = System.getenv("jb_packages_password")
+            }
+
+            url = uri("https://maven.pkg.jetbrains.space/dynamium/p/evc/evcalc-engine-snapshots")
+        }
     }
     publications {
         create<MavenPublication>("evcalc") {
@@ -37,10 +42,6 @@ publishing {
 
             from(components["java"])
         }
-
-        /*create<MavenPublication>("evcalc-local") { // For local maven deployment
-            from(components["java"])
-        }*/
     }
 }
 
