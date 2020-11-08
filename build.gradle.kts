@@ -24,7 +24,7 @@ publishing {
 
             url = uri("https://maven.pkg.jetbrains.space/dynamium/p/evc/evcalc-engine")
         }
-        maven() {
+        maven {
             credentials {
                 username = System.getenv("jb_packages_username")
                 password = System.getenv("jb_packages_password")
