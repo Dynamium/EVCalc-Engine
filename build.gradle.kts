@@ -33,6 +33,8 @@ publishing {
             groupId = project.group.toString()
             artifactId = project.name
             version = project.version.toString()
+            description = "EVCalc Engine is an engine for calculating mileage, battery consumption, and more."
+
             from(components["java"])
         }
 
