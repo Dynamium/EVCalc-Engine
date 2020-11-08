@@ -7,11 +7,12 @@ job("[Engine] Build") {
 }
 
 job("[Engine] Publish artifact") {
-    container("openjdk:14") {
+    container("ubuntu") {
         env["jb_packages_username"] = Secrets("jb_packages_username")
         env["jb_packages_password"] = Secrets("jb_packages_password")
 
         shellScript {
+            interpreter = "/bin/bash"
             content = "python3 ci-cd/publish.py"
         }
     }
