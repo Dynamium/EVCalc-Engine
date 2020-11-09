@@ -75,7 +75,7 @@ internal object EucUniversalCalculation {
 
         // ---------------- Step 2/5: Apply rider weight ---------------- //
         logger.debug { "Step 2/5: Apply rider weight" }
-        calculatedValue.applyOffset(RIDER_WEIGHT, calculatedValue)
+        calculatedValue.applyOffset(RIDER_WEIGHT, riderWeight, calculatedValue)
 
         logger.debug { "Calculated value is $calculatedValue" }
 
@@ -109,11 +109,6 @@ internal object EucUniversalCalculation {
         return calculatedValue
     }
 
-    @Deprecated(
-        level = DeprecationLevel.WARNING,
-        message = "Use extension function .applyOffset instead.",
-        replaceWith = ReplaceWith(expression = ".applyOffset")
-    )
     private fun calculateOffset(attribute: OffsetApplierAttribute, rawValue: Int, currentCalculatedValue: Int): Int {
         var calculatedValue = 0
         when (attribute) {
@@ -237,40 +232,67 @@ internal object EucUniversalCalculation {
      * @param attribute Indicates what offset you want to calculate. Uses OffsetApplierAttribute enum class to indicate that.
      * @param currentCalculatedValue Specifies current calculated value, obviously.
      */
-    private fun Int.applyOffset(attribute: OffsetApplierAttribute, currentCalculatedValue: Int) {
+
+    @Deprecated(
+        level = DeprecationLevel.WARNING,
+        message = "Use function applyOffset instead.",
+        replaceWith = ReplaceWith(expression = ".applyOffset")
+    )
+    private fun Int.applyOffset(attribute: OffsetApplierAttribute, rawValue: Int, currentCalculatedValue: Int) {
         val calculatedValue: Int
+        logger.debug { "Called .applyOffset extension function" }
         when (attribute) {
             BATTERY_CAPACITY -> TODO()
             RIDER_WEIGHT -> {
+                logger.debug { "Calculating rider weight" }
                 calculatedValue = when {
                     this > startRiderWeight -> {
                         var endValue = 0 // Create our end value
 
-                        val val1 = getOffsetOfValues(startRiderWeight, this) // Get the offset
+                        logger.debug { "rawValue is $rawValue, startRiderWeight is $startRiderWeight" }
+                        val val1 = getOffsetOfValues(rawValue, startRiderWeight) // Get the offset
+
+                        logger.debug { "First offset is $val1" }
                         var tmpVal = val1
 
-                        if (val1 > 12)
-                            while (tmpVal > 12)  // Loop for making the offset less than 12
-                                endValue += 7; tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
+                        if (val1 > 12) while (tmpVal > 12) {
+                            // Loop for making the offset less than 12
+                            logger.debug { "Entered a loop" }
+                            endValue += 7
+                            logger.debug { "endValue is $endValue" }
+                            tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
+                            logger.debug { "tmpVal is $tmpVal" }
+                        }
 
                         if (tmpVal == 0) 0 else { // If the temp variable is 0, return our result, but if not, continue the calculation
+                            logger.debug { "tmpVal isn't 0, continuing" }
                             val val2 = CalculationTools.getPercentageOfOneValueFromAnother(tmpVal, 12) // Get percentage of temporary value from a constant
+                            logger.debug { "val2 percentage value is $val2" }
 
                             val val3 = CalculationTools.getValueOfValueFromPercentage(7, val2) // Apply our percentage to get the end value
+                            logger.debug { "val3 applied percentage is $val3" }
+
                             endValue += val3 // Add previous value to end variable
 
+                            logger.debug { "end value is $endValue" }
+
+                            logger.debug { "Inverted end value is " + -abs(endValue) }
                             -abs(endValue) // Return inverted number, so this offset will be subtracted from end value instead of added
                         }
                     }
                     this < startRiderWeight -> {
                         var endValue = 0 // Create our end value
 
-                        val val1 = getOffsetOfValues(this, startRiderWeight) // Get the offset
+                        val val1 = getOffsetOfValues(startRiderWeight, this) // Get the offset
                         var tmpVal = val1
 
                         if (val1 > 12)
-                            while (tmpVal > 12)  // Loop for making the offset less than 12
-                                endValue += 7; tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
+                            while (tmpVal > 12) {
+                                // Loop for making the offset less than 12
+                                endValue += 7
+                                tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
+
+                            }
 
                         if (tmpVal == 0) 0 else { // If the temp variable is 0, return our result, but if not, continue the calculation
                             val val2 = CalculationTools.getPercentageOfOneValueFromAnother(tmpVal, 12) // Get percentage of temporary value from a constant
@@ -283,7 +305,8 @@ internal object EucUniversalCalculation {
                     }
                     else -> 0
                 }
-                this + calculatedValue // Apply our results to the end value
+                logger.debug { "Applied end value" }
+                this += calculatedValue // Apply our results to the end value
             }
             AIR_TEMP -> TODO()
             BATTERY_CYCLES -> TODO()

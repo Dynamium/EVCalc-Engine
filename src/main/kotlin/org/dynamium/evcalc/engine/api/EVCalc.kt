@@ -36,7 +36,13 @@ object EVCalc {
     ): Int {
         return when (device) {
             DeviceModel.EUC_UNIVERSAL -> {
-                EucUniversalCalculation.calculateMileage(riderWeight, batteryCapacity, airTemp, batteryCycles, speed)
+                EucUniversalCalculation.calculateMileage(
+                    riderWeight = riderWeight,
+                    batteryCapacity = batteryCapacity,
+                    airTemp = airTemp,
+                    batteryCycles = batteryCycles,
+                    speed = speed
+                )
             }
             DeviceModel.KINGSONG_KS14SMD -> {
                 TODO("Make API implementation for KingSong KS-14SMD")
