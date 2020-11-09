@@ -19,8 +19,8 @@ import kotlin.math.abs
 private const val startRiderWeight = 75
 private const val startBatteryCapacity = 1555
 private val startAirTemperature = listOf(20, 30)
-private const val startAirTemperatureStart = 20
-private const val startAirTemperatureEnd = 30
+private val startAirTemperatureStart = startAirTemperature[0]
+private val startAirTemperatureEnd = startAirTemperature[1]
 private const val startBatteryCycles = 100
 private const val startSpeed = 35
 private const val startMileage = 88
@@ -112,7 +112,11 @@ internal object EucUniversalCalculation {
         return calculatedValue
     }
 
-    @Deprecated("Use extension function .applyOffset instead.")
+    @Deprecated(
+        level = DeprecationLevel.WARNING,
+        message = "Use extension function .applyOffset instead.",
+        replaceWith = ReplaceWith(expression = ".applyOffset")
+    )
     private fun calculateOffset(attribute: OffsetApplierAttribute, rawValue: Int, currentCalculatedValue: Int): Int {
         var calculatedValue = 0
         when (attribute) {
@@ -237,12 +241,31 @@ internal object EucUniversalCalculation {
      * @param currentCalculatedValue Specifies current calculated value, obviously.
      */
     private fun Int.applyOffset(attribute: OffsetApplierAttribute, currentCalculatedValue: Int) {
-        var calculatedValue = 0
+        val calculatedValue: Int
         when (attribute) {
             BATTERY_CAPACITY -> TODO()
             RIDER_WEIGHT -> {
                 calculatedValue = when {
                     this > startRiderWeight -> {
+                        var endValue = 0 // Create our end value
+
+                        val val1 = getOffsetOfValues(startRiderWeight, this) // Get the offset
+                        var tmpVal = val1
+
+                        if (val1 > 12)
+                            while (tmpVal > 12)  // Loop for making the offset less than 12
+                                endValue += 7; tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
+
+                        if (tmpVal == 0) 0 else { // If the temp variable is 0, return our result, but if not, continue the calculation
+                            val val2 = CalculationTools.getPercentageOfOneValueFromAnother(tmpVal, 12) // Get percentage of temporary value from a constant
+
+                            val val3 = CalculationTools.getValueOfValueFromPercentage(7, val2) // Apply our percentage to get the end value
+                            endValue += val3 // Add previous value to end variable
+
+                            -abs(endValue) // Return inverted number, so this offset will be subtracted from end value instead of added
+                        }
+                    }
+                    this < startRiderWeight -> {
                         var endValue = 0 // Create our end value
 
                         val val1 = getOffsetOfValues(this, startRiderWeight) // Get the offset
