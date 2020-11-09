@@ -75,11 +75,8 @@ internal object EucUniversalCalculation {
 
         // ---------------- Step 2/5: Apply rider weight ---------------- //
         logger.debug { "Step 2/5: Apply rider weight" }
-        calculatedValue += calculateOffset(
-            attribute = RIDER_WEIGHT,
-            rawValue = riderWeight,
-            currentCalculatedValue = calculatedValue
-        )
+        calculatedValue.applyOffset(RIDER_WEIGHT, calculatedValue)
+
         logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 3/5: Apply air temperature ---------------- //
