@@ -218,10 +218,14 @@ internal object EucUniversalCalculation {
                 }
             }
             AIR_TEMP -> {
+                TODO("Add air temperature offset calculation")
             }
             BATTERY_CYCLES -> {
+                TODO("Add battery cycles offset calculation")
+
             }
             SPEED -> {
+                TODO("Add speed offset calculation")
             }
         }
         return calculatedValue
