@@ -169,7 +169,7 @@ internal object EucUniversalCalculation {
                             val val3 = CalculationTools.getValueOfValueFromPercentage(7, val2) // Apply our percentage to get the end value
                             endValue += val3 // Add previous value to end variable
 
-                            -abs(endValue) // Return inverted number, so this offset will be subtracted from end value instead of added
+                            endValue // Return our result
                         }
                     }
                     else -> 0
