@@ -4,7 +4,6 @@ package org.dynamium.evcalc.engine.api
 
 import org.dynamium.evcalc.engine.core.euc.universal.EucUniversalCalculation
 
-
 /*
  * EVCalc Calculation Engine
  *
@@ -13,6 +12,7 @@ import org.dynamium.evcalc.engine.core.euc.universal.EucUniversalCalculation
 
 /**
  * A main entry point for EVCalc Engine API.
+ *
  */
 object EVCalc {
 
@@ -25,6 +25,8 @@ object EVCalc {
      * @param batteryCycles Indicates how many times the internal battery was cycled through charge-discharge process
      * @param speed Indicates, well, the device's average speed. I actually tried to make variable names very easy to understand, idk why d you even read this, everything is obvious
      * @param device Indicates, well, the device. Uses `DeviceModel` enum class.
+     *
+     * @return An approximate mileage
      */
     fun calculateMileage(
         riderWeight: Int,
