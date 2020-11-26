@@ -1,7 +1,6 @@
 package org.dynamium.evcalc.engine.core.euc.universal
 
 import mu.KotlinLogging
-import org.dynamium.evcalc.engine.api.EucRideStyle
 import org.dynamium.evcalc.engine.core.euc.OffsetApplierAttribute
 import org.dynamium.evcalc.engine.core.euc.OffsetApplierAttribute.*
 import org.dynamium.evcalc.engine.core.tools.CalculationTools
@@ -216,7 +215,17 @@ internal object EucUniversalCalculation {
                 }
             }
             AIR_TEMP -> {
-                // TODO: Make implementation for air temperature
+                calculatedValue = when {
+                    rawValue > startAirTemperature -> {
+                        if (rawValue >= 36) {
+                            @Suppress("UnusedUnaryOperator")
+                            -abs(rawValue - 36)
+                        } else {
+                            rawValue - startAirTemperature
+                        }
+                    }
+                    else -> 0
+                }
             }
             BATTERY_CYCLES -> {
                 // TODO: Make implementation for battery cycles
