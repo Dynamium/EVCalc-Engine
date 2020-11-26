@@ -247,7 +247,7 @@ internal object EucUniversalCalculation {
                                 endValue += 3
                             }
                         }
-                        endValue
+                        -abs(endValue)
                     }
                     else -> 0
                 }
