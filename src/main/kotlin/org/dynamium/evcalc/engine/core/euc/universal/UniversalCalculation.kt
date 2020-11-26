@@ -22,13 +22,6 @@ private const val startBatteryCycles = 100
 private const val startSpeed = 35
 private const val startMileage = 88
 
-// Multipliers
-private const val riderWeightOffsetMultiplier = 2
-private const val batteryCapacityOffsetMultiplier = 15
-private const val airTempOffset = 1
-private const val batteryCyclesOffset = 100
-private const val speedOffset = 1
-
 private val logger = KotlinLogging.logger {}
 
 internal object EucUniversalCalculation {
