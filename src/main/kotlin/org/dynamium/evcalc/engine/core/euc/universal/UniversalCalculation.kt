@@ -224,6 +224,9 @@ internal object EucUniversalCalculation {
                             rawValue - startAirTemperature
                         }
                     }
+                    rawValue < startAirTemperature -> {
+                        startAirTemperature - rawValue
+                    }
                     else -> 0
                 }
             }
