@@ -43,10 +43,11 @@ class EucUniversalTest : StringSpec({
         calculatedValue shouldBeLessThan 90
     }
 
-    "Calculation speed needs to be lower than 0.1" {
+    "Calculation speed needs to be lower than 0.1".config(invocations = 5) {
         val (_, duration) = executeAndMeasureTimeInMillis {
-            EVCalc.calculateMileage(60, 1556, 31, 100, 36, device)
+            EVCalc.calculateMileage(60, 1556, 31, 400, 36, device)
         }
         duration shouldNotBeGreaterThan 100
+        println("Execution duration is $duration")
     }
 })
