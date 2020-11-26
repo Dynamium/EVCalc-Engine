@@ -231,7 +231,26 @@ internal object EucUniversalCalculation {
                 }
             }
             BATTERY_CYCLES -> {
-                // TODO: Make implementation for battery cycles
+                calculatedValue = when {
+                    rawValue > startBatteryCycles -> {
+                        var tmp = rawValue
+                        var endValue = 0
+                        while (tmp > 100) {
+
+                            if (tmp <= 800 || tmp <= 500 || tmp <= 200) {
+                                tmp -= 100
+                                endValue += 2
+                            }
+
+                            if (tmp <= 700 || tmp <= 600 || tmp <= 400 || tmp <= 300) {
+                                tmp -= 100
+                                endValue += 3
+                            }
+                        }
+                        endValue
+                    }
+                    else -> 0
+                }
             }
             SPEED -> {
                 // TODO: Make implementation for speed
