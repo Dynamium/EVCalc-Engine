@@ -28,6 +28,7 @@ object EVCalc {
      *
      * @return An approximate mileage
      */
+
     fun calculateMileage(
         riderWeight: Int,
         batteryCapacity: Int,
@@ -45,9 +46,6 @@ object EVCalc {
                     batteryCycles = batteryCycles,
                     speed = speed
                 )
-            }
-            DeviceModel.KINGSONG_KS14SMD -> {
-                TODO("Make API implementation for KingSong KS-14SMD")
             }
             else -> {
                 throw NotImplementedError(
