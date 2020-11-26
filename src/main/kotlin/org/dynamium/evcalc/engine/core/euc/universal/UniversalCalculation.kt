@@ -18,9 +18,7 @@ import kotlin.math.abs
 // Start constants
 private const val startRiderWeight = 75
 private const val startBatteryCapacity = 1555
-private val startAirTemperature = listOf(20, 30)
-private val startAirTemperatureStart = startAirTemperature[0]
-private val startAirTemperatureEnd = startAirTemperature[1]
+private const val startAirTemperature = 25
 private const val startBatteryCycles = 100
 private const val startSpeed = 35
 private const val startMileage = 88
@@ -218,14 +216,13 @@ internal object EucUniversalCalculation {
                 }
             }
             AIR_TEMP -> {
-                TODO("Add air temperature offset calculation")
+                // TODO: Make implementation for air temperature
             }
             BATTERY_CYCLES -> {
-                TODO("Add battery cycles offset calculation")
-
+                // TODO: Make implementation for battery cycles
             }
             SPEED -> {
-                TODO("Add speed offset calculation")
+                // TODO: Make implementation for speed
             }
         }
         return calculatedValue
