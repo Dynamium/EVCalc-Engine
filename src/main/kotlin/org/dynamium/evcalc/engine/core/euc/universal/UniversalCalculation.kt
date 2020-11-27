@@ -94,11 +94,15 @@ internal object EucUniversalCalculation {
             rawValue = speed,
             currentCalculatedValue = calculatedValue
         )
-        logger.debug { "Offset is ${calculateOffset(
-            attribute = SPEED,
-            rawValue = speed,
-            currentCalculatedValue = calculatedValue
-        )}" }
+        logger.debug {
+            "Offset is ${
+                calculateOffset(
+                    attribute = SPEED,
+                    rawValue = speed,
+                    currentCalculatedValue = calculatedValue
+                )
+            }"
+        }
         logger.debug { "Calculated value is $calculatedValue" }
 
         return calculatedValue
@@ -114,20 +118,39 @@ internal object EucUniversalCalculation {
 
                         val val1 = getOffsetOfValues(rawValue, startRiderWeight) // Get the offset
 
+                        logger.debug { val1 }
+
                         var tmpVal = val1
 
                         if (val1 > 12) while (tmpVal > 12) {
+                            logger.debug { "Entered loop" }
                             // Loop for making the offset less than 12
                             endValue += 7
                             tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
                         }
 
-                        if (tmpVal == 0) 0 else { // If the temp variable is 0, return our result, but if not, continue the calculation
-                            val val2 = CalculationTools.getPercentageOfOneValueFromAnother(tmpVal, 12) // Get percentage of temporary value from a constant
+                        if (tmpVal == 0) {
+                            logger.debug { "Done" }
+                            0
+                        } else { // If the temp variable is 0, return our result, but if not, continue the calculation
+                            logger.debug { "Not done" }
+                            val val2 = CalculationTools.getPercentageOfOneValueFromAnother(
+                                tmpVal,
+                                12
+                            ) // Get percentage of temporary value from a constant
 
-                            val val3 = CalculationTools.getValueOfValueFromPercentage(7, val2) // Apply our percentage to get the end value
+                            logger.debug { val2 }
+
+                            val val3 = CalculationTools.getValueOfValueFromPercentage(
+                                7,
+                                val2
+                            ) // Apply our percentage to get the end value
+
+                            logger.debug { val3 }
 
                             endValue += val3 // Add previous value to end variable
+
+                            logger.debug { endValue }
 
                             -abs(endValue) // Return inverted number, so this offset will be subtracted from end value instead of added
                         }
@@ -138,18 +161,23 @@ internal object EucUniversalCalculation {
                         val val1 = getOffsetOfValues(startRiderWeight, rawValue) // Get the offset
                         var tmpVal = val1
 
-                        if (val1 > 12)
-                            while (tmpVal > 12) {
-                                // Loop for making the offset less than 12
-                                endValue += 7
-                                tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
+                        if (val1 > 12) while (tmpVal > 12) {
+                            // Loop for making the offset less than 12
+                            endValue += 7
+                            tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
 
-                            }
+                        }
 
                         if (tmpVal == 0) 0 else { // If the temp variable is 0, return our result, but if not, continue the calculation
-                            val val2 = CalculationTools.getPercentageOfOneValueFromAnother(tmpVal, 12) // Get percentage of temporary value from a constant
+                            val val2 = CalculationTools.getPercentageOfOneValueFromAnother(
+                                tmpVal,
+                                12
+                            ) // Get percentage of temporary value from a constant
 
-                            val val3 = CalculationTools.getValueOfValueFromPercentage(7, val2) // Apply our percentage to get the end value
+                            val val3 = CalculationTools.getValueOfValueFromPercentage(
+                                7,
+                                val2
+                            ) // Apply our percentage to get the end value
                             endValue += val3 // Add previous value to end variable
 
                             endValue // Return our result
@@ -239,22 +267,7 @@ internal object EucUniversalCalculation {
                 }
             }
             SPEED -> {
-                var endValue = 0
-
-                val returnInverted: Boolean
-
-                var val1 = if (rawValue > startSpeed) {
-                    returnInverted = true
-                    rawValue - startSpeed
-                } else {
-                    returnInverted = false
-                    startSpeed - rawValue
-                }
-
-                if (val1 > 10) while (val1 > 10) {
-                    endValue += 7
-                    val1 -= 10
-                }
+                // TODO: Make implementation for speed
             }
         }
         return calculatedValue
