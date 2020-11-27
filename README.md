@@ -24,7 +24,9 @@ Examples
 
 ## Deployment
 
-Add additional notes about how to deploy this on a production system.
+Nothing actually needed for deployment.
+All you need to do is to push all code to the repo with the right project version in `build.gradle.kts`.
+Everything works on a remote server.
 
 ## Resources
 
