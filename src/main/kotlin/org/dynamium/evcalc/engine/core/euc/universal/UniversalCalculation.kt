@@ -114,45 +114,23 @@ internal object EucUniversalCalculation {
             RIDER_WEIGHT -> {
                 calculatedValue = when {
                     rawValue > startRiderWeight -> {
-                        var endValue = 0 // Create our end value
-
-                        val val1 = getOffsetOfValues(rawValue, startRiderWeight) // Get the offset
-
-                        logger.debug { val1 }
-
-                        var tmpVal = val1
-
-                        if (val1 > 12) while (tmpVal > 12) {
-                            logger.debug { "Entered loop" }
-                            // Loop for making the offset less than 12
-                            endValue += 7
-                            tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
-                        }
-
-                        if (tmpVal == 0) {
-                            logger.debug { "Done" }
-                            0
-                        } else { // If the temp variable is 0, return our result, but if not, continue the calculation
-                            logger.debug { "Not done" }
-                            val val2 = CalculationTools.getPercentageOfOneValueFromAnother(
-                                tmpVal,
-                                12
-                            ) // Get percentage of temporary value from a constant
-
-                            logger.debug { val2 }
-
-                            val val3 = CalculationTools.getValueOfValueFromPercentage(
-                                7,
-                                val2
-                            ) // Apply our percentage to get the end value
-
-                            logger.debug { val3 }
-
-                            endValue += val3 // Add previous value to end variable
-
-                            logger.debug { endValue }
-
-                            -abs(endValue) // Return inverted number, so this offset will be subtracted from end value instead of added
+                        if (rawValue - startRiderWeight > 12) {
+                            logger.debug { "rawValue - startRiderWeight is bigger than 12" }
+                            var tmp = rawValue - startRiderWeight
+                            var endValue = 0
+                            while (tmp > 12) {
+                                logger.debug { "entered loop" }
+                                tmp -= 12
+                                endValue += 7
+                            }
+                            logger.debug { "returning ${endValue + (currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100))}" }
+                            endValue + (currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100))
+                        } else {
+                            logger.debug { rawValue - startRiderWeight }
+                            logger.debug { (rawValue - startRiderWeight) / 12 * 100 }
+                            logger.debug { ((rawValue - startRiderWeight) / 12 * 100) * 7 / 100 }
+                            logger.debug { currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100) }
+                            currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100)
                         }
                     }
                     rawValue < startRiderWeight -> {
@@ -161,12 +139,12 @@ internal object EucUniversalCalculation {
                         val val1 = getOffsetOfValues(startRiderWeight, rawValue) // Get the offset
                         var tmpVal = val1
 
-                        if (val1 > 12) while (tmpVal > 12) {
-                            // Loop for making the offset less than 12
-                            endValue += 7
-                            tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
-
-                        }
+                        if (val1 > 12)
+                            while (tmpVal > 12) {
+                                // Loop for making the offset less than 12
+                                endValue += 7
+                                tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
+                            }
 
                         if (tmpVal == 0) 0 else { // If the temp variable is 0, return our result, but if not, continue the calculation
                             val val2 = CalculationTools.getPercentageOfOneValueFromAnother(
