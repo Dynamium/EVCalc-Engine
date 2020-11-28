@@ -146,32 +146,11 @@ internal object EucUniversalCalculation {
                 calculatedValue = when {
                     // Mathematical actions for getting percentage of one number from another
                     rawValue < startBatteryCapacity -> {
-
-                        val val1 = rawValue * 100
-                        val val2 = val1 / startBatteryCapacity
-                        val val3 = 100 - val2
-
-                        val val4 = val3 * currentCalculatedValue
-                        val val5 = val4 / 100
-                        -abs(val5)
+                        -abs(((100 - ((rawValue * 100) / startBatteryCapacity)) * currentCalculatedValue) / 100)
                     }
                     rawValue > startBatteryCapacity -> {
-                        logger.debug { "rawValue is $rawValue, currentCalculatedValue is $currentCalculatedValue, startBatteryCapacity is $startBatteryCapacity" }
-
-                        val val1 = rawValue * 100
-                        logger.debug { "val1 = $val1" }
-                        val val2 = val1 / startBatteryCapacity
-                        logger.debug { "val2 = $val2" }
-                        val val3 = val2 - 100
-                        logger.debug { "val3 = $val3" }
-                        val val4 = 100 - val3
-                        logger.debug { "val4 = $val4" }
-
-                        val val5 = val4 * currentCalculatedValue
-                        logger.debug { "val5 = $val5" }
-                        val val6 = val5 / 100
-                        logger.debug { "val6 = $val6" }
-                        val6
+                        logger.debug { (currentCalculatedValue * (((rawValue - startBatteryCapacity).toFloat() / rawValue * 100) / 100)).toInt() }
+                        (currentCalculatedValue * (((rawValue - startBatteryCapacity).toFloat() / rawValue * 100) / 100)).toInt()
                     }
                     else -> {
                         0
