@@ -10,7 +10,7 @@ import io.kotest.matchers.shouldBe
 import org.dynamium.evcalc.engine.api.DeviceModel
 import org.dynamium.evcalc.engine.api.EVCalc
 
-class EucUniversalTest : StringSpec({
+class EucUniversaMileageTest : StringSpec({
     val device = DeviceModel.EUC_UNIVERSAL
     "Returned value needs to pe positive" {
         val calculatedValue = EVCalc.calculateMileage(81, 1554, 31, 100, 44, device)
