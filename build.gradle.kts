@@ -49,9 +49,9 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:1.7.26")
     implementation("io.github.microutils:kotlin-logging:1.12.0")
     dokkaHtmlPlugin("org.jetbrains.dokka:dokka-base:1.4.10.2")
-    testImplementation("io.kotest:kotest-runner-junit5:4.3.0") // for kotest framework
-    testImplementation("io.kotest:kotest-assertions-core:4.3.0") // for kotest core jvm assertions
-    testImplementation("io.kotest:kotest-property:4.3.0") // for kotest property test
+    testImplementation("io.kotest:kotest-runner-junit5:4.3.1") // for kotest framework
+    testImplementation("io.kotest:kotest-assertions-core:4.3.1") // for kotest core jvm assertions
+    testImplementation("io.kotest:kotest-property:4.3.1") // for kotest property test
 }
 
 tasks.withType<Test> {
