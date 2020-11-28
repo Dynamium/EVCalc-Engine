@@ -121,37 +121,22 @@ internal object EucUniversalCalculation {
                                 tmp -= 12
                                 endValue += 7
                             }
-                            endValue + (currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100))
+                            endValue + (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100)
                         } else {
                             -abs((((rawValue - startRiderWeight).toFloat() / 12 * 100) * 7 / 100).toInt())
                         }
                     }
                     rawValue < startRiderWeight -> {
-                        var endValue = 0 // Create our end value
-
-                        val val1 = getOffsetOfValues(startRiderWeight, rawValue) // Get the offset
-                        var tmpVal = val1
-
-                        if (val1 > 12)
-                            while (tmpVal > 12) {
-                                // Loop for making the offset less than 12
+                        if (startRiderWeight - rawValue > 12) {
+                            var tmp = startRiderWeight - rawValue
+                            var endValue = 0
+                            while (tmp > 12) {
+                                tmp -= 12
                                 endValue += 7
-                                tmpVal -= 12 // Add 7 km to returned value and subtract 12 kg from temporary variable
                             }
-
-                        if (tmpVal == 0) 0 else { // If the temp variable is 0, return our result, but if not, continue the calculation
-                            val val2 = CalculationTools.getPercentageOfOneValueFromAnother(
-                                tmpVal,
-                                12
-                            ) // Get percentage of temporary value from a constant
-
-                            val val3 = CalculationTools.getValueOfValueFromPercentage(
-                                7,
-                                val2
-                            ) // Apply our percentage to get the end value
-                            endValue += val3 // Add previous value to end variable
-
-                            endValue // Return our result
+                            (endValue + (((startRiderWeight - rawValue).toFloat() / 12 * 100) * 7 / 100)).toInt()
+                        } else {
+                            -abs((((startRiderWeight - rawValue).toFloat() / 12 * 100) * 7 / 100).toInt())
                         }
                     }
                     else -> 0
