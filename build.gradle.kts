@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.4.10.2"
 }
 group = "org.dynamium.evcalc"
-version = "1.0-M1-dev4-SNAPSHOT"
+version = "1.0-M1-dev4"
 
 repositories {
     mavenCentral()
