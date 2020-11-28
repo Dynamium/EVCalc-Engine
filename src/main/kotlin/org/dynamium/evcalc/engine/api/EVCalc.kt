@@ -56,4 +56,34 @@ object EVCalc {
             }
         }
     }
+
+    fun calculatePowerConsumption(
+        riderWeight: Int,
+        batteryCapacity: Int,
+        airTemp: Int = 28,
+        batteryCycles: Int = 100,
+        speed: Int,
+        distance: Int,
+        device: DeviceModel
+    ): Int {
+        return when (device) {
+            DeviceModel.EUC_UNIVERSAL -> {
+                EucUniversalCalculation.calculatePowerConsumption(
+                    riderWeight,
+                    batteryCapacity,
+                    airTemp,
+                    batteryCycles,
+                    speed,
+                    distance
+                )
+            }
+            else -> {
+                throw NotImplementedError(
+                    "EVCalc API Error: not implemented. \n" +
+                            "If this behaviour is unexpected, please report this error on " +
+                            "GitHub Issues https://github.com/Dynamium/EVCalc/issues with all needed data."
+                )
+            }
+        }
+    }
 }
