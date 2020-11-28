@@ -1,3 +1,5 @@
+@file:Suppress("DuplicatedCode")
+
 package org.dynamium.evcalc.engine.core.euc.universal
 
 import mu.KotlinLogging
@@ -195,7 +197,35 @@ internal object EucUniversalCalculation {
                 }
             }
             SPEED -> {
-                // TODO: Make implementation for speed
+                calculatedValue = when {
+                    rawValue > startSpeed -> {
+                        if (rawValue - startSpeed > 10) {
+                            var tmp = rawValue - startSpeed
+                            var endValue = 0
+                            while (tmp > 10) {
+                                tmp -= 10
+                                endValue += 18
+                            }
+                            (endValue + (((rawValue - startSpeed).toFloat() / 10 * 100) * 18 / 100)).toInt()
+                        } else {
+                            -abs((((rawValue - startSpeed).toFloat() / 10 * 100) * 18 / 100).toInt())
+                        }
+                    }
+                    rawValue < startSpeed -> {
+                        if (startSpeed - rawValue > 10) {
+                            var tmp = startSpeed - rawValue
+                            var endValue = 0
+                            while (tmp > 10) {
+                                tmp -= 10
+                                endValue += 18
+                            }
+                            (endValue + (((startSpeed - rawValue).toFloat() / 10 * 100) * 18 / 100)).toInt()
+                        } else {
+                            -abs((((startSpeed - rawValue).toFloat() / 10 * 100) * 8 / 100).toInt())
+                        }
+                    }
+                    else -> 0
+                }
             }
         }
         return calculatedValue
