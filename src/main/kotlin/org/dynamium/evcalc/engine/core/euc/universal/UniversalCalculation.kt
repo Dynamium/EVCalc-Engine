@@ -115,22 +115,15 @@ internal object EucUniversalCalculation {
                 calculatedValue = when {
                     rawValue > startRiderWeight -> {
                         if (rawValue - startRiderWeight > 12) {
-                            logger.debug { "rawValue - startRiderWeight is bigger than 12" }
                             var tmp = rawValue - startRiderWeight
                             var endValue = 0
                             while (tmp > 12) {
-                                logger.debug { "entered loop" }
                                 tmp -= 12
                                 endValue += 7
                             }
-                            logger.debug { "returning ${endValue + (currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100))}" }
                             endValue + (currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100))
                         } else {
-                            logger.debug { rawValue - startRiderWeight }
-                            logger.debug { (rawValue - startRiderWeight) / 12 * 100 }
-                            logger.debug { ((rawValue - startRiderWeight) / 12 * 100) * 7 / 100 }
-                            logger.debug { currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100) }
-                            currentCalculatedValue - (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100)
+                            -abs((((rawValue - startRiderWeight).toFloat() / 12 * 100) * 7 / 100).toInt())
                         }
                     }
                     rawValue < startRiderWeight -> {
