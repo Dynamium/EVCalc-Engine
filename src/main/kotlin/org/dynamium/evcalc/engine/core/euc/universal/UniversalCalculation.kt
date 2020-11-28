@@ -146,10 +146,10 @@ internal object EucUniversalCalculation {
                 calculatedValue = when {
                     // Mathematical actions for getting percentage of one number from another
                     rawValue < startBatteryCapacity -> {
-                        -abs(((100 - ((rawValue * 100) / startBatteryCapacity)) * currentCalculatedValue) / 100)
+                        logger.debug { -abs((currentCalculatedValue * (((startBatteryCapacity - rawValue).toFloat() / rawValue * 100) / 100)).toInt()) }
+                        -abs((currentCalculatedValue * (((startBatteryCapacity - rawValue).toFloat() / rawValue * 100) / 100)).toInt())
                     }
                     rawValue > startBatteryCapacity -> {
-                        logger.debug { (currentCalculatedValue * (((rawValue - startBatteryCapacity).toFloat() / rawValue * 100) / 100)).toInt() }
                         (currentCalculatedValue * (((rawValue - startBatteryCapacity).toFloat() / rawValue * 100) / 100)).toInt()
                     }
                     else -> {
