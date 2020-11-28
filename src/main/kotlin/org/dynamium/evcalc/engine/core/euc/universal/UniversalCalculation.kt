@@ -157,7 +157,7 @@ internal object EucUniversalCalculation {
                     }
                     rawValue > startBatteryCapacity -> {
                         logger.debug { "rawValue is $rawValue, currentCalculatedValue is $currentCalculatedValue, startBatteryCapacity is $startBatteryCapacity" }
-r
+
                         val val1 = rawValue * 100
                         logger.debug { "val1 = $val1" }
                         val val2 = val1 / startBatteryCapacity
