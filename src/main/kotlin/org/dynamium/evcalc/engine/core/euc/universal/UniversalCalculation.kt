@@ -121,7 +121,7 @@ internal object EucUniversalCalculation {
                                 tmp -= 12
                                 endValue += 7
                             }
-                            endValue + (((rawValue - startRiderWeight) / 12 * 100) * 7 / 100)
+                            (endValue + (((rawValue - startRiderWeight).toFloat() / 12 * 100) * 7 / 100)).toInt()
                         } else {
                             -abs((((rawValue - startRiderWeight).toFloat() / 12 * 100) * 7 / 100).toInt())
                         }
