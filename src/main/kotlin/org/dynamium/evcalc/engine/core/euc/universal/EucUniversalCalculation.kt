@@ -3,10 +3,9 @@
 package org.dynamium.evcalc.engine.core.euc.universal
 
 import mu.KotlinLogging
+import org.dynamium.evcalc.engine.core.euc.DeviceCalc
 import org.dynamium.evcalc.engine.core.euc.OffsetApplierAttribute
 import org.dynamium.evcalc.engine.core.euc.OffsetApplierAttribute.*
-import org.dynamium.evcalc.engine.core.tools.CalculationTools
-import org.dynamium.evcalc.engine.core.tools.CalculationTools.getOffsetOfValues
 import kotlin.math.abs
 
 /*
@@ -24,10 +23,8 @@ private const val startBatteryCycles = 100
 private const val startSpeed = 35
 private const val startMileage = 88
 
-private val logger = KotlinLogging.logger {}
-
-internal object EucUniversalCalculation {
-    fun calculateMileage(
+internal object EucUniversalCalculation : DeviceCalc() {
+    override fun calculateMileage(
         riderWeight: Int,
         batteryCapacity: Int,
         airTemp: Int,
@@ -36,76 +33,47 @@ internal object EucUniversalCalculation {
     ): Int {
         var calculatedValue = startMileage
 
-        logger.debug { "Received values are: riderWeight = $riderWeight, batteryCapacity = $batteryCapacity, airTemp = $airTemp, batteryCycles = $batteryCycles, speed = $speed" }
-
-        logger.debug {
-            "Called calculateMileage function"
-        }
-
         // ---------------- Preparation step: check if battery capacity and speed aren't 0 ---------------- //
-        logger.debug { "Preparation step: check if battery capacity and speed aren't 0" }
         when {
             batteryCapacity == 0 -> {
-                logger.debug { "Battery capacity is 0, returning 0" }
                 return 0
             }
             speed == 0 -> {
-                logger.debug { "Speed is 0, returning 0" }
                 return 0
             }
         }
-        logger.debug { "Battery capacity and speed aren't 0, proceeding" }
 
         // ---------------- Step 1/5: tweak end value with battery capacity ---------------- //
-        logger.debug { "Step 1/5: tweak end value with battery capacity" }
         calculatedValue += calculateOffset(
             attribute = BATTERY_CAPACITY,
             rawValue = batteryCapacity,
             currentCalculatedValue = calculatedValue
         )
-        logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 2/5: Apply rider weight ---------------- //
-        logger.debug { "Step 2/5: Apply rider weight" }
         calculatedValue += calculateOffset(RIDER_WEIGHT, riderWeight, calculatedValue)
 
-        logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 3/5: Apply air temperature ---------------- //
-        logger.debug { "Step 3/5: Apply air temperature" }
         calculatedValue += calculateOffset(
             attribute = AIR_TEMP,
             rawValue = airTemp,
             currentCalculatedValue = calculatedValue
         )
-        logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 4/5: Apply battery cycles ---------------- //
-        logger.debug { "Step 4/5: Apply battery cycles" }
         calculatedValue += calculateOffset(
             attribute = BATTERY_CYCLES,
             rawValue = batteryCycles,
             currentCalculatedValue = calculatedValue
         )
-        logger.debug { "Calculated value is $calculatedValue" }
 
         // ---------------- Step 5/5: Apply speed ---------------- //
-        logger.debug { "Step 5/5: Apply speed" }
         calculatedValue += calculateOffset(
             attribute = SPEED,
             rawValue = speed,
             currentCalculatedValue = calculatedValue
         )
-        logger.debug {
-            "Offset is ${
-                calculateOffset(
-                    attribute = SPEED,
-                    rawValue = speed,
-                    currentCalculatedValue = calculatedValue
-                )
-            }"
-        }
-        logger.debug { "Calculated value is $calculatedValue" }
 
         return calculatedValue
     }
