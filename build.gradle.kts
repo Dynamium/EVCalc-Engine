@@ -46,7 +46,7 @@ publishing {
 }
 
 dependencies {
-    implementation("org.slf4j:slf4j-simple:1.7.26")
+    implementation("org.slf4j:slf4j-simple:1.7.30")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.3")
     dokkaHtmlPlugin("org.jetbrains.dokka:dokka-base:1.4.10.2")
     testImplementation("io.kotest:kotest-runner-junit5:4.3.1") // for kotest framework
