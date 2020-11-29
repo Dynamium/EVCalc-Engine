@@ -35,9 +35,9 @@ object EVCalc {
         airTemp: Int = 28,
         batteryCycles: Int = 100,
         speed: Int,
-        batteryPercentage: Int = 100,
-        device: DeviceModel
-    ): Int {
+        device: DeviceModel,
+        batteryPercentage: Int = 100
+        ): Int {
         return when (device) {
             DeviceModel.EUC_UNIVERSAL ->
                 EucUniversalCalculation.calculateMileage(
