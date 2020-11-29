@@ -22,7 +22,7 @@ publishing {
                 password = System.getenv("jb_packages_password")
             }
 
-            url = uri("https://maven.pkg.jetbrains.space/dynamium/p/evc/evcalc-engine")
+            url = uri("https://maven.pkg.jetbrains.space/dynamium/p/evc/maven")
         }
         maven {
             credentials {
@@ -30,7 +30,7 @@ publishing {
                 password = System.getenv("jb_packages_password")
             }
 
-            url = uri("https://maven.pkg.jetbrains.space/dynamium/p/evc/evcalc-engine-snapshots")
+            url = uri("https://maven.pkg.jetbrains.space/dynamium/p/evc/maven-snapshots")
         }
     }
     publications {
