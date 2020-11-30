@@ -30,12 +30,12 @@ object EVCalc {
      */
 
     fun calculateMileage(
+        device: DeviceModel,
         riderWeight: Int,
         batteryCapacity: Int,
         airTemp: Int = 28,
         batteryCycles: Int = 100,
         speed: Int,
-        device: DeviceModel,
         batteryPercentage: Int = 100
         ): Int {
         return when (device) {
