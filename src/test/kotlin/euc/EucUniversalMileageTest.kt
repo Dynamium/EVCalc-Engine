@@ -2,13 +2,14 @@ package euc
 
 import executeAndMeasureTimeInMillis
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.ints.shouldBeGreaterThan
-import io.kotest.matchers.ints.shouldBeLessThan
+import io.kotest.matchers.comparables.shouldBeGreaterThan
+import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.ints.shouldNotBeLessThanOrEqual
 import io.kotest.matchers.longs.shouldNotBeGreaterThan
 import io.kotest.matchers.shouldBe
-import org.dynamium.evcalc.engine.api.DeviceModel
+import org.dynamium.evcalc.engine.api.actions.DeviceModel
 import org.dynamium.evcalc.engine.api.EVCalc
+import org.dynamium.evcalc.engine.api.actions.calculateMileage
 
 class EucUniversalMileageTest : StringSpec({
     val device = DeviceModel.EUC_UNIVERSAL
