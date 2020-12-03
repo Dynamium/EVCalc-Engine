@@ -7,9 +7,9 @@ import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.ints.shouldNotBeLessThanOrEqual
 import io.kotest.matchers.longs.shouldNotBeGreaterThan
 import io.kotest.matchers.shouldBe
-import org.dynamium.evcalc.engine.api.actions.DeviceModel
+import org.dynamium.evcalc.engine.api.calculation.DeviceModel
 import org.dynamium.evcalc.engine.api.EVCalc
-import org.dynamium.evcalc.engine.api.actions.mileage.calculateMileage
+import org.dynamium.evcalc.engine.api.calculation.mileage.calculateMileage
 
 class EucUniversalMileageTest : StringSpec({
     val device = DeviceModel.EUC_UNIVERSAL
