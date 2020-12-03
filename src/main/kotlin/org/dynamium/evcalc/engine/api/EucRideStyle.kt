@@ -2,7 +2,7 @@
 
 package org.dynamium.evcalc.engine.api
 
-@ExperimentalApi
+@ExperimentalEvcalcApi
 enum class EucRideStyle {
     SLOW,
     MEDIUM,
