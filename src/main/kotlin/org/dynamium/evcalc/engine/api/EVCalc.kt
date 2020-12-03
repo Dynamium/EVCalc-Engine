@@ -2,8 +2,6 @@
 
 package org.dynamium.evcalc.engine.api
 
-import org.dynamium.evcalc.engine.core.euc.universal.EucUniversalCalculation
-
 /*
  * EVCalc Calculation Engine
  *
