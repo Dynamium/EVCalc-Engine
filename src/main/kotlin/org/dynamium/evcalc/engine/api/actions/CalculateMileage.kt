@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 
-package org.dynamium.evcalc.engine.api
+package org.dynamium.evcalc.engine.api.actions
 
+import org.dynamium.evcalc.engine.api.DeviceModel
+import org.dynamium.evcalc.engine.api.EVCalc
 import org.dynamium.evcalc.engine.core.euc.universal.EucUniversalCalculation
 
 /**
