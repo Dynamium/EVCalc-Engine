@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package org.dynamium.evcalc.engine.api
+package org.dynamium.evcalc.engine.api.actions
 
 /**
  * An enum class for indicating the device model.
