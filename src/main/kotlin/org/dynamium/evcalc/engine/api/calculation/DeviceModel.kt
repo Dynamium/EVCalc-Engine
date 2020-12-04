@@ -6,6 +6,8 @@ package org.dynamium.evcalc.engine.api.calculation
  * An enum class for indicating the device model.
  */
 enum class DeviceModel {
+
+	UNSELECTED,				// Maybe someone will need that
 	
 	/*
 	 * Universal
