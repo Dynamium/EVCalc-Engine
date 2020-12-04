@@ -9,9 +9,10 @@ import org.dynamium.evcalc.engine.core.tirepressure.calculateEucTirePressure
 @ExperimentalEvcalcApi
 fun EVCalc.calculateTirePressure(
     wheelDiameter: Int,
+    wheelWidth: Float,
     riderWeight: Int,
     rideSoftness: RideSoftness,
     tireType: TireType
-): Int {
-    return calculateEucTirePressure(wheelDiameter, riderWeight, rideSoftness, tireType)
+): Float {
+    return calculateEucTirePressure(wheelDiameter, wheelWidth, riderWeight, rideSoftness, tireType)
 }
