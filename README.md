@@ -16,11 +16,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Prerequisites
 
-What things you need to install the software and how to install them.
+You need JDK 15 installed in your system.
+After downloading the project and developing without and IntelliJ IDEA, execute command below:
 
 ```
-Examples
+./gradlew clean build
 ```
+
+But it is recommended to develop and contribute to this project in IntelliJ IDEA.
 
 ## Deployment
 
@@ -30,4 +33,4 @@ Everything works on a remote server.
 
 ## Resources
 
-Add links to external resources for this project, such as CI server, bug tracker, etc.
+Documentation: available in project's documents.
