@@ -9,6 +9,8 @@ import org.dynamium.evcalc.engine.api.calculation.tirepressure.TireType
 /**
  * An internal object with start values for tire pressure calculation.
  *
+ * Every start value assumes that you have a 16" wheel
+ *
  */
 private object StartValues {
     /**
@@ -41,22 +43,6 @@ fun calculateEucTirePressure(
     tireType: TireType
 ): Float {
 
-//    var calculatedValue: Float = when (wheelDiameter) {
-//        10 -> StartValues.Pressure.tenInch
-//        14 -> StartValues.Pressure.fourteenInch
-//        15 -> ((StartValues.Pressure.fourteenInch + StartValues.Pressure.sixteenInch) / 2).round(2).toFloat()
-//        16 -> StartValues.Pressure.sixteenInch
-//        17 -> ((StartValues.Pressure.sixteenInch + StartValues.Pressure.eighteenInch) / 2).round(2).toFloat()
-//        18 -> StartValues.Pressure.eighteenInch
-//        22 -> StartValues.Pressure.twentyTwoInch
-//        else -> {
-//            if (wheelDiameter < 14) {
-//
-//            }
-//            0F
-//        }
-//    }
-
     var calculatedValue = StartValues.pressure
 
     // ---------------- Step 1/?: Apply wheel diameter ---------------- //
@@ -70,6 +56,9 @@ fun calculateEucTirePressure(
 
     // ---------------- Step 2/?: Apply wheel width ---------------- //
 
+    calculatedValue += if (wheelWidth != 2.125F) {
+        0F
+    } else 0F
 
     return calculatedValue
 }
