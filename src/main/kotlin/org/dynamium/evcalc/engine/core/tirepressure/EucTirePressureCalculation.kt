@@ -11,29 +11,26 @@ import org.dynamium.evcalc.engine.api.calculation.tirepressure.TireType
  *
  */
 private object StartValues {
-//    object Pressure {
-//        const val tenInch = 2.5F
-//        const val fourteenInch = 3.1F
-//        const val sixteenInch = 2.8F
-//        const val eighteenInch = 2.5F
-//        const val twentyTwoInch = 1.5F
-//    }
-
     /**
      * Start pressure. It is for 16" wheel.
      */
     const val pressure = 2.5F
 
-    /**
-     * Modifiers for making tire pressure for soft rides, offroading, or something in the middle.
-     */
-    object RideSoftnessModifiers {
-        const val soft: Float = 0F
-        const val medium: Float = 0F
-        const val hard: Float = 0F
-    }
 
-    const val wheelDiameterModifier = 0.05F
+    object Modifiers {
+        const val wheelDiameter = 0.05F
+
+        const val wheelWidth = 0.1F
+
+        /**
+         * Modifiers for making tire pressure for soft rides, offroading, or something in the middle.
+         */
+        object RideSoftness {
+            const val soft: Float = 0F
+            const val medium: Float = 0F
+            const val hard: Float = 0F
+        }
+    }
 }
 
 fun calculateEucTirePressure(
@@ -66,9 +63,9 @@ fun calculateEucTirePressure(
 
     calculatedValue += if (wheelDiameter != 16) {
         if (wheelDiameter > 16)
-            StartValues.wheelDiameterModifier * (wheelDiameter - 16)
+            StartValues.Modifiers.wheelDiameter * (wheelDiameter - 16)
         else
-            StartValues.wheelDiameterModifier * (16 - wheelDiameter)
+            StartValues.Modifiers.wheelDiameter * (16 - wheelDiameter)
     } else 0F
 
     // ---------------- Step 2/?: Apply wheel width ---------------- //
