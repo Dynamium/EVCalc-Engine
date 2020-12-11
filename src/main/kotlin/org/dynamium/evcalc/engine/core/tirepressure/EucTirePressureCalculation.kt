@@ -60,12 +60,20 @@ fun calculateEucTirePressure(
 //        }
 //    }
 
-    var calculatedValue: Float = 0F
+    var calculatedValue = StartValues.pressure
 
     // ---------------- Step 1/?: Apply wheel diameter ---------------- //
 
+    calculatedValue += if (wheelDiameter != 16) {
+        if (wheelDiameter > 16)
+            StartValues.wheelDiameterModifier * (wheelDiameter - 16)
+        else
+            StartValues.wheelDiameterModifier * (16 - wheelDiameter)
+    } else 0F
 
+    // ---------------- Step 2/?: Apply wheel width ---------------- //
 
 
     return calculatedValue
 }
+
