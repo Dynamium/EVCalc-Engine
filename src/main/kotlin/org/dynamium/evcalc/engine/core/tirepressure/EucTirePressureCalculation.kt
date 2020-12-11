@@ -26,9 +26,9 @@ private object StartValues {
          * Modifiers for making tire pressure for soft rides, offroading, or something in the middle.
          */
         object RideSoftness {
-            const val soft: Float = 0F
-            const val medium: Float = 0F
-            const val hard: Float = 0F
+            const val soft = 0F
+            const val medium = 0F
+            const val hard = 0F
         }
     }
 }
