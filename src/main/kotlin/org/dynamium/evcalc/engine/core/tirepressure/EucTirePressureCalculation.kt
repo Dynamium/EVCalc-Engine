@@ -4,6 +4,7 @@ package org.dynamium.evcalc.engine.core.tirepressure
 
 import org.dynamium.evcalc.engine.api.calculation.tirepressure.RideSoftness
 import org.dynamium.evcalc.engine.api.calculation.tirepressure.TireType
+import org.dynamium.evcalc.engine.core.utils.math.round
 
 
 /**
@@ -42,10 +43,13 @@ fun calculateEucTirePressure(
     rideSoftness: RideSoftness,
     tireType: TireType
 ): Float {
-
     var calculatedValue = StartValues.pressure
 
-    // ---------------- Step 1/?: Apply wheel diameter ---------------- //
+    // ---------------- Step 1/?: Prepare data ---------------- //
+
+    val wheelWidthP = wheelWidth.round(3).toFloat()
+
+    // ---------------- Step 2/?: Apply wheel diameter ---------------- //
 
     calculatedValue += if (wheelDiameter != 16) {
         if (wheelDiameter > 16)
@@ -54,10 +58,24 @@ fun calculateEucTirePressure(
             StartValues.Modifiers.wheelDiameter * (16 - wheelDiameter)
     } else 0F
 
-    // ---------------- Step 2/?: Apply wheel width ---------------- //
+    // ---------------- Step 3/?: Apply wheel width ---------------- //
 
-    calculatedValue += if (wheelWidth != 2.125F) {
-        0F
+    calculatedValue += if (wheelWidthP != 2.125F) {
+        if (wheelWidthP > 2.125) {
+            if (wheelWidthP - 2.125 > 0.4) {
+                var tmp = 0
+                var tmp2 = wheelWidthP
+
+                while (tmp2 > 0.4) {
+                    tmp2 -= 0.4F
+                    tmp += 1
+                }
+
+                StartValues.Modifiers.wheelWidth
+            } else {
+                0F
+            }
+        } else 0F
     } else 0F
 
     return calculatedValue
