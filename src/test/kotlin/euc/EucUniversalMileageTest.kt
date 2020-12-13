@@ -15,31 +15,43 @@ class EucUniversalMileageTest : StringSpec({
     val device = DeviceModel.EUC_UNIVERSAL
     "Returned value needs to pe positive" {
         val calculatedValue = EVCalc.calculateMileage(device, 81, 1554, 31, 100, 44)
+
+        println("Returned value is $calculatedValue")
         calculatedValue shouldBeGreaterThan 0
     }
 
     "When battery capacity is 0, the result needs to be 0" {
         val calculatedValue = EVCalc.calculateMileage(device, 75, 0, 31, 100, 36)
+
+        println("Returned value is $calculatedValue")
         calculatedValue shouldBe 0
     }
 
     "When speed is 0, returned value must be 0" {
         val calculatedValue = EVCalc.calculateMileage(device, 75, 1800, 31, 100, 0)
+
+        println("Returned value is $calculatedValue")
         calculatedValue shouldBe 0
     }
 
     "When battery capacity is greater than 100, value needs to be greater than 0" {
         val calculatedValue = EVCalc.calculateMileage(device, 75, 101, 31, 100, 36)
+
+        println("Returned value is $calculatedValue")
         calculatedValue shouldNotBeLessThanOrEqual 0
     }
 
     "When start values are passed as the arguments, returned value needs to be 88"{
         val calculatedValue = EVCalc.calculateMileage(device, 75, 1555, 25, 100, 35)
+
+        println("Returned value is $calculatedValue")
         calculatedValue shouldBe 88
     }
 
     "If all values are totally real, returned value should be normal too" {
         val calculatedValue = EVCalc.calculateMileage(device, 75, 1554, 31, 100, 36)
+
+        println("Returned value is $calculatedValue")
         calculatedValue shouldBeGreaterThan 80
         calculatedValue shouldBeLessThan 95
     }
@@ -47,6 +59,7 @@ class EucUniversalMileageTest : StringSpec({
     "Battery percentage needs to actually work" {
         val calculatedValue = EVCalc.calculateMileage(device, 75, 1554, 31, 100, 36, 64)
 
+        println("Returned value is $calculatedValue")
         calculatedValue shouldBeGreaterThan 30
     }
 
