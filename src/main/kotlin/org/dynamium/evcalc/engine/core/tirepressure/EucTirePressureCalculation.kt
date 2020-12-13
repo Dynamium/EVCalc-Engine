@@ -55,7 +55,7 @@ fun calculateEucTirePressure(
         if (wheelDiameter > 16)
             StartValues.Modifiers.wheelDiameter * (wheelDiameter - 16)
         else
-            StartValues.Modifiers.wheelDiameter * (16 - wheelDiameter)
+            -(StartValues.Modifiers.wheelDiameter * (16 - wheelDiameter))
     } else 0F
 
     // ---------------- Step 3/?: Apply wheel width ---------------- //
@@ -71,9 +71,9 @@ fun calculateEucTirePressure(
                     tmp += 1
                 }
 
-                StartValues.Modifiers.wheelWidth
+                StartValues.Modifiers.wheelWidth * tmp + tmp2
             } else {
-                0F
+                StartValues.Modifiers.wheelWidth + (wheelWidthP - 2.125).toFloat()
             }
         } else 0F
     } else 0F
